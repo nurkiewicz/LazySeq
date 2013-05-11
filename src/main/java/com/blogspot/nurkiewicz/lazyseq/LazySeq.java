@@ -159,66 +159,6 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	}
 
 	@Override
-	public Spliterator<E> spliterator() {
-		return new Spliterator<E>() {
-
-			private LazySeq<E> cur = LazySeq.this;
-
-			@Override
-			public boolean tryAdvance(Consumer<? super E> action) {
-				if (!cur.isEmpty()) {
-					action.accept(cur.head());
-					cur = cur.tail();
-					return true;
-				} else {
-					return false;
-				}
-			}
-
-			@Override
-			public Spliterator<E> trySplit() {
-				if (cur.isEmpty()) {
-					return null;
-				}
-				final E singleton = cur.head();
-				cur = cur.tail();
-				return new Spliterator<E>() {
-					@Override
-					public boolean tryAdvance(Consumer<? super E> action) {
-						action.accept(singleton);
-						return true;
-					}
-
-					@Override
-					public Spliterator<E> trySplit() {
-						return null;
-					}
-
-					@Override
-					public long estimateSize() {
-						return 1;
-					}
-
-					@Override
-					public int characteristics() {
-						return CONCURRENT | IMMUTABLE | NONNULL | ORDERED;
-					}
-				};
-			}
-
-			@Override
-			public long estimateSize() {
-				return Long.MAX_VALUE;
-			}
-
-			@Override
-			public int characteristics() {
-				return CONCURRENT | IMMUTABLE | NONNULL | ORDERED;
-			}
-		};
-	}
-
-	@Override
 	public String toString() {
 		final StringBuilder s = new StringBuilder("[");
 		LazySeq<E> cur = this;
