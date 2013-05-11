@@ -322,11 +322,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 
 	@Override
 	public int size() {
-		int sizeSoFar = 0;
-		for (LazySeq<E> cur = this; !cur.isEmpty(); cur = cur.tail()) {
-			++sizeSoFar;
-		}
-		return sizeSoFar;
+		return 1 + tail().size();
 	}
 
 	@Override

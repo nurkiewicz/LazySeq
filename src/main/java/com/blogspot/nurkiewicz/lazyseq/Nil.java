@@ -75,6 +75,11 @@ class Nil<E> extends LazySeq<E> {
 	}
 
 	@Override
+	public int size() {
+		return 0;
+	}
+
+	@Override
 	public boolean anyMatch(Predicate<? super E> predicate) {
 		return false;
 	}
