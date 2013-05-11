@@ -47,10 +47,6 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		return cons(element1, of(element2));
 	}
 
-	public static <E> LazySeq<E> iterate(E initial, Function<E, E> fun) {
-		return new Cons<>(initial, () -> iterate(fun.apply(initial), fun));
-	}
-
 	public static <E> LazySeq<E> of(E... elements) {
 		return of(Arrays.asList(elements).iterator());
 	}
@@ -120,6 +116,10 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	@SuppressWarnings("unchecked")
 	public static <E> LazySeq<E> empty() {
 		return (LazySeq<E>) NIL;
+	}
+
+	public static <E> LazySeq<E> iterate(E initial, Function<E, E> fun) {
+		return new Cons<>(initial, () -> iterate(fun.apply(initial), fun));
 	}
 
 	public static <E> Collector<E, LazySeq<E>> toLazySeq() {
