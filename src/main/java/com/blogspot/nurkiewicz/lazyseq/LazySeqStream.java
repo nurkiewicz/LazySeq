@@ -43,12 +43,12 @@ class LazySeqStream<E> implements Stream<E> {
 
 	@Override
 	public Stream<E> substream(long startInclusive) {
-		return underlying.substream(startInclusive).stream();
+		return underlying.drop(startInclusive).stream();
 	}
 
 	@Override
 	public Stream<E> substream(long startInclusive, long endExclusive) {
-		return underlying.substream(startInclusive, endExclusive).stream();
+		return underlying.slice(startInclusive, endExclusive).stream();
 	}
 
 	@Override

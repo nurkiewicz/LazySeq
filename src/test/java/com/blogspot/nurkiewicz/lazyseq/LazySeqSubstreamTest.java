@@ -29,7 +29,8 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 
 		try {
 			//when
-			empty.substream(-1);
+			long startInclusive = -1;
+			empty.drop(startInclusive);
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
 			//then
@@ -43,7 +44,8 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 
 		try {
 			//when
-			nonEmpty.substream(-1);
+			long startInclusive = -1;
+			nonEmpty.drop(startInclusive);
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
 			//then
@@ -57,7 +59,8 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 
 		try {
 			//when
-			infinite.substream(-1);
+			long startInclusive = -1;
+			infinite.drop(startInclusive);
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
 			//then
@@ -66,22 +69,22 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 
 	@Test
 	public void shouldReturnEmptySeqWhenSubstreamFromBeginningOfEmptySeq() throws Exception {
-		assertThat(empty().substream(0)).isEmpty();
+		assertThat(empty().drop((long) 0)).isEmpty();
 	}
 
 	@Test
 	public void shouldReturnEmptySeqWhenSubstreamFromFurtherIndexOfEmptySeq() throws Exception {
-		assertThat(empty().substream(5)).isEmpty();
+		assertThat(empty().drop((long) 5)).isEmpty();
 	}
 
 	@Test
 	public void shouldReturnEmptySeqWhenSubstreamPastEnd() throws Exception {
-		assertThat(of(1, 2).substream(2)).isEmpty();
+		assertThat(of(1, 2).drop((long) 2)).isEmpty();
 	}
 
 	@Test
 	public void shouldReturnSubstreamWithoutPrefix() throws Exception {
-		assertThat(of(1, 2, 3, 4, 5).substream(2)).isEqualTo(of(3, 4, 5));
+		assertThat(of(1, 2, 3, 4, 5).drop((long) 2)).isEqualTo(of(3, 4, 5));
 	}
 
 	@Test
@@ -90,7 +93,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 		final LazySeq<Integer> naturals = naturals(0);
 
 		//when
-		final LazySeq<Integer> fromFive = naturals.substream(5);
+		final LazySeq<Integer> fromFive = naturals.drop((long) 5);
 
 		//then
 		assertThat(fromFive.take(4)).isEqualTo(of(5, 6, 7, 8));
@@ -103,7 +106,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 		given(supplierMock.get()).willReturn(cons(2, (Supplier<LazySeq<Integer>>) supplierMock::get));
 
 		//when
-		naturals.substream(2);
+		naturals.drop((long) 2);
 
 		//then
 		verify(supplierMock, times(2)).get();
@@ -111,10 +114,10 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 
 	@Test
 	public void shouldReturnEmptySeqWhenSlicingEmptySeq() throws Exception {
-		assertThat(empty().substream(10, 10)).isEmpty();
-		assertThat(empty().substream(10, 20)).isEmpty();
-		assertThat(empty().substream(0, 0)).isEmpty();
-		assertThat(empty().substream(0, 10)).isEmpty();
+		assertThat(empty().slice(10, 10)).isEmpty();
+		assertThat(empty().slice(10, 20)).isEmpty();
+		assertThat(empty().slice(0, 0)).isEmpty();
+		assertThat(empty().slice(0, 10)).isEmpty();
 	}
 
 	@Test
@@ -124,7 +127,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 
 		try {
 			//when
-			empty.substream(10, 9);
+			empty.slice(10, 9);
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
 			//then
@@ -138,7 +141,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 
 		try {
 			//when
-			nonEmpty.substream(10, 9);
+			nonEmpty.slice(10, 9);
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
 			//then
@@ -151,7 +154,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 
 		try {
 			//when
-			infinite.substream(10, 9);
+			infinite.slice(10, 9);
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
 			//then
@@ -165,7 +168,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 
 		try {
 			//when
-			empty.substream(-10, 9);
+			empty.slice(-10, 9);
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
 			//then
@@ -179,7 +182,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 
 		try {
 			//when
-			nonEmpty.substream(-10, 9);
+			nonEmpty.slice(-10, 9);
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
 			//then
@@ -193,7 +196,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 
 		try {
 			//when
-			infinite.substream(-10, 9);
+			infinite.slice(-10, 9);
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
 			//then
@@ -206,7 +209,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 		final LazySeq<Integer> nonEmpty = of(1, 2, 3, 4, 5, 6);
 
 		//when
-		final LazySeq<Integer> subs = nonEmpty.substream(2, 4);
+		final LazySeq<Integer> subs = nonEmpty.slice(2, 4);
 
 		//then
 		assertThat(subs).isEqualTo(of(3, 4));
@@ -218,7 +221,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 		final LazySeq<Integer> naturals = naturals(0);
 
 		//when
-		final LazySeq<Integer> subs = naturals.substream(3, 7);
+		final LazySeq<Integer> subs = naturals.slice(3, 7);
 
 		//then
 		assertThat(subs).isEqualTo(of(3, 4, 5, 6));
@@ -230,7 +233,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 		final LazySeq<Integer> nonEmpty = of(1, 2, 3, 4, 5, 6, 7);
 
 		//when
-		final LazySeq<Integer> subs = nonEmpty.substream(4, 100);
+		final LazySeq<Integer> subs = nonEmpty.slice(4, 100);
 
 		//then
 		assertThat(subs).isEqualTo(of(5, 6, 7));
@@ -242,7 +245,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 		final LazySeq<Integer> nonEmpty = of(1, 2, 3, 4, 5, 6, 7);
 
 		//when
-		final LazySeq<Integer> subs = nonEmpty.substream(0, 4);
+		final LazySeq<Integer> subs = nonEmpty.slice(0, 4);
 
 		//then
 		assertThat(subs).isEqualTo(of(1, 2, 3, 4));
@@ -254,7 +257,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 		final LazySeq<Integer> nonEmpty = of(1, 2, 3, 4, 5);
 
 		//when
-		final LazySeq<Integer> subs = nonEmpty.substream(0, 100);
+		final LazySeq<Integer> subs = nonEmpty.slice(0, 100);
 
 		//then
 		assertThat(subs).isEqualTo(of(1, 2, 3, 4, 5));
@@ -266,7 +269,7 @@ public class LazySeqSubstreamTest extends AbstractBaseTestCase {
 		final LazySeq<Integer> nonEmpty = of(1, 2, 3);
 
 		//when
-		final LazySeq<Integer> subs = nonEmpty.substream(4, 10);
+		final LazySeq<Integer> subs = nonEmpty.slice(4, 10);
 
 		//then
 		assertThat(subs).isEmpty();
