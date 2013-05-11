@@ -1,6 +1,7 @@
 package com.blogspot.nurkiewicz.lazyseq;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.iterate;
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.tabulate;
 
 /**
  * @author Tomasz Nurkiewicz
@@ -30,5 +31,11 @@ public class SampleStreams {
 		return true;
 	}
 
+	/**
+	 * @return 1 - 1/3 + 1/5 - 1/7 + 1/9 - ...
+	 */
+	public static LazySeq<Double> piSeriesEstimation() {
+		return tabulate(0, n -> (1 - (n % 2) * 2) / (2 * n + 1.0));
+	}
 
 }
