@@ -21,7 +21,7 @@ class Nil<E> extends LazySeq<E> {
 
 	@Override
 	public LazySeq<E> tail() {
-		throw new UnsupportedOperationException("tail of empty stream");
+		throw new NoSuchElementException("tail of empty stream");
 	}
 
 	@Override
