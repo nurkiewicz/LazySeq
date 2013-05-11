@@ -242,7 +242,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		U result = identity;
 		LazySeq<E> cur = this;
 		while (!cur.isEmpty()) {
-			identity = accumulator.apply(identity, cur.head());
+			result = accumulator.apply(result, cur.head());
 			cur = cur.tail();
 		}
 		return result;
