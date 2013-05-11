@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.empty;
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
+import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.naturals;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
@@ -42,11 +43,7 @@ public class LazySeqTailTest extends AbstractBaseTestCase {
 
 	@Test
 	public void shouldReturnTailOfInfiniteLazySeq() throws Exception {
-		assertThat(naturals().tail().limit(4)).isEqualTo(of(2, 3, 4, 5));
-	}
-
-	private LazySeq<Integer> naturals() {
-		return LazySeq.iterate(1, x -> x + 1);
+		assertThat(naturals(1).tail().limit(4)).isEqualTo(of(2, 3, 4, 5));
 	}
 
 }

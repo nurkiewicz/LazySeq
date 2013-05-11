@@ -17,7 +17,7 @@ public class LazySeqIterateTest extends AbstractBaseTestCase {
 
 	@Test
 	public void shouldReturnInfiniteSequenceOfNaturalNumbers() throws Exception {
-		final LazySeq<Integer> naturals = iterate(1, x -> x + 1);
+		final LazySeq<Integer> naturals = SampleStreams.naturals(1);
 		assertThat(naturals.head()).isEqualTo(1);
 		assertThat(naturals.tail().head()).isEqualTo(2);
 		assertThat(naturals.drop(1000).head()).isEqualTo(1001);

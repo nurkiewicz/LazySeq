@@ -2,7 +2,9 @@ package com.blogspot.nurkiewicz.lazyseq;
 
 import org.testng.annotations.Test;
 
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.*;
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.empty;
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
+import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.naturals;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
 
@@ -24,10 +26,6 @@ public class LazySeqGetTest extends AbstractBaseTestCase {
 		} catch (IndexOutOfBoundsException e) {
 			//then
 		}
-	}
-
-	private LazySeq<Integer> naturals(int from) {
-		return iterate(from, x -> x + 1);
 	}
 
 	@Test

@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.iterate;
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
+import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.naturals;
 import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.primes;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -15,7 +16,7 @@ public class LazySeqContainsTest extends AbstractBaseTestCase {
 
 	@Test
 	public void shouldReturnInfiniteSequenceOfNaturalNumbers() throws Exception {
-		final LazySeq<Integer> naturals = iterate(1, x -> x + 1);
+		final LazySeq<Integer> naturals = naturals(1);
 		assertThat(naturals).contains(17);
 		assertThat(naturals.take(1000)).doesNotContain(-1, 0);
 	}
