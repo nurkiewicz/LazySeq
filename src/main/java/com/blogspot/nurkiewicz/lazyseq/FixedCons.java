@@ -55,7 +55,7 @@ class FixedCons<E> extends LazySeq<E> {
 	}
 
 	@Override
-	public LazySeq<E> limit(long maxSize) {
+	protected LazySeq<E> limitUnsafe(long maxSize) {
 		if (maxSize > 0) {
 			return cons(head, tail.limit(maxSize - 1));
 		} else {

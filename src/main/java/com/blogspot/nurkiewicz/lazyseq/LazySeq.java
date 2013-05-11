@@ -181,7 +181,14 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 
 	public abstract <R> LazySeq<R> flatMap(Function<? super E, ? extends Iterable<? extends R>> mapper);
 
-	public abstract LazySeq<E> limit(long maxSize);
+	public LazySeq<E> limit(long maxSize) {
+		if (maxSize < 0) {
+			throw new IllegalArgumentException(Long.toString(maxSize));
+		}
+		return limitUnsafe(maxSize);
+	}
+
+	protected abstract LazySeq<E> limitUnsafe(long maxSize);
 
 	public LazySeq<E> take(long maxSize) {
 		return limit(maxSize);

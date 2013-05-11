@@ -49,7 +49,7 @@ class Nil<E> extends LazySeq<E> {
 	}
 
 	@Override
-	public LazySeq<E> limit(long maxSize) {
+	protected LazySeq<E> limitUnsafe(long maxSize) {
 		return empty();
 	}
 
