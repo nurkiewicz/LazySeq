@@ -9,6 +9,10 @@ import static com.blogspot.nurkiewicz.lazyseq.LazySeq.tabulate;
  */
 public class SampleStreams {
 
+	public static LazySeq<Integer> naturals(int from) {
+		return iterate(from, x -> x + 1);
+	}
+
 	public static LazySeq<Integer> primes() {
 		return iterate(2, SampleStreams::nextPrimeAfter);
 	}
