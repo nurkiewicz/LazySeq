@@ -30,6 +30,11 @@ class Nil<E> extends LazySeq<E> {
 	}
 
 	@Override
+	public E get(int index) {
+		throw new IndexOutOfBoundsException(Integer.toString(index));
+	}
+
+	@Override
 	public <R> LazySeq<R> map(Function<? super E, ? extends R> mapper) {
 		return empty();
 	}

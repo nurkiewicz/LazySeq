@@ -137,19 +137,18 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	protected abstract boolean isTailDefined();
 
 	@Override
-	public E get(int index) {
+	public E get(final int index) {
 		if (index < 0) {
 			throw new IndexOutOfBoundsException(Integer.toString(index));
 		}
-		return getUnsafe(index);
-	}
-
-	private E getUnsafe(int index) {
-		if (index == 0) {
-			return head();
-		} else {
-			return tail().getUnsafe(index - 1);
+		LazySeq<E> cur = this;
+		for (int curIdx = index; curIdx > 0; --curIdx) {
+			if (cur.tail().isEmpty()) {
+				throw new IndexOutOfBoundsException(Integer.toString(index));
+			}
+			cur = cur.tail();
 		}
+		return cur.head();
 	}
 
 	public abstract <R> LazySeq<R> map(Function<? super E, ? extends R> mapper);
