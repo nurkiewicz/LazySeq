@@ -17,7 +17,7 @@ public class LazySeqIterator<E> implements Iterator<E> {
 
 	@Override
 	public boolean hasNext() {
-		return underlying.isEmpty();
+		return !underlying.isEmpty();
 	}
 
 	@Override
