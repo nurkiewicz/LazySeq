@@ -54,7 +54,7 @@ class Nil<E> extends LazySeq<E> {
 	}
 
 	@Override
-	public LazySeq<E> substream(long startInclusive) {
+	protected LazySeq<E> dropUnsafe(long startInclusive) {
 		return empty();
 	}
 

@@ -195,15 +195,22 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	}
 
 	public LazySeq<E> substream(long startInclusive) {
+		return drop(startInclusive);
+	}
+
+	public LazySeq<E> drop(long startInclusive) {
+		if (startInclusive < 0) {
+			throw new IllegalArgumentException(Long.toString(startInclusive));
+		}
+		return dropUnsafe(startInclusive);
+	}
+
+	protected LazySeq<E> dropUnsafe(long startInclusive) {
 		if (startInclusive > 0) {
 			return tail().substream(startInclusive - 1);
 		} else {
 			return this;
 		}
-	}
-
-	public LazySeq<E> drop(long startInclusive) {
-		return substream(startInclusive);
 	}
 
 	public LazySeq<E> substream(long startInclusive, long endExclusive) {
