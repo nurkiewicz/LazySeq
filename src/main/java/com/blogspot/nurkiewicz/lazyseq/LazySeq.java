@@ -182,17 +182,17 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	public abstract <R> LazySeq<R> flatMap(Function<? super E, ? extends Iterable<? extends R>> mapper);
 
 	public LazySeq<E> limit(long maxSize) {
+		return take(maxSize);
+	}
+
+	public LazySeq<E> take(long maxSize) {
 		if (maxSize < 0) {
 			throw new IllegalArgumentException(Long.toString(maxSize));
 		}
-		return limitUnsafe(maxSize);
+		return takeUnsafe(maxSize);
 	}
 
-	protected abstract LazySeq<E> limitUnsafe(long maxSize);
-
-	public LazySeq<E> take(long maxSize) {
-		return limit(maxSize);
-	}
+	protected abstract LazySeq<E> takeUnsafe(long maxSize);
 
 	public LazySeq<E> substream(long startInclusive) {
 		return drop(startInclusive);
@@ -214,11 +214,10 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	}
 
 	public LazySeq<E> substream(long startInclusive, long endExclusive) {
-		if (startInclusive > 0) {
-			return tail().substream(startInclusive - 1, endExclusive - 1);
-		} else {
-			return limit(endExclusive);
+		if (startInclusive < 0 || startInclusive > endExclusive) {
+			throw new IllegalArgumentException("substream(" + startInclusive + ", " + endExclusive + ")");
 		}
+		return dropUnsafe(startInclusive).takeUnsafe(endExclusive - startInclusive);
 	}
 
 	public void forEach(Consumer<? super E> action) {

@@ -49,17 +49,12 @@ class Nil<E> extends LazySeq<E> {
 	}
 
 	@Override
-	protected LazySeq<E> limitUnsafe(long maxSize) {
+	protected LazySeq<E> takeUnsafe(long maxSize) {
 		return empty();
 	}
 
 	@Override
 	protected LazySeq<E> dropUnsafe(long startInclusive) {
-		return empty();
-	}
-
-	@Override
-	public LazySeq<E> substream(long startInclusive, long endExclusive) {
 		return empty();
 	}
 
