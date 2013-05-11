@@ -179,7 +179,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 
 	public abstract LazySeq<E> filter(Predicate<? super E> predicate);
 
-	public abstract <R> LazySeq<R> flatMap(Function<? super E, ? extends Stream<? extends R>> mapper);
+	public abstract <R> LazySeq<R> flatMap(Function<? super E, ? extends Iterable<? extends R>> mapper);
 
 	public abstract LazySeq<E> limit(long maxSize);
 

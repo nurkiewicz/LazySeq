@@ -31,7 +31,9 @@ class LazySeqStream<E> implements Stream<E> {
 
 	@Override
 	public <R> Stream<R> flatMap(Function<? super E, ? extends Stream<? extends R>> mapper) {
-		return underlying.flatMap(mapper).stream();
+		return underlying.
+				flatMap(e -> mapper.apply(e).collect(Collectors.<R>toList())).
+				stream();
 	}
 
 	@Override

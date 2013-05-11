@@ -1,10 +1,8 @@
 package com.blogspot.nurkiewicz.lazyseq;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Tomasz Nurkiewicz
@@ -50,9 +48,10 @@ class FixedCons<E> extends LazySeq<E> {
 	}
 
 	@Override
-	public <R> LazySeq<R> flatMap(Function<? super E, ? extends Stream<? extends R>> mapper) {
-		final List<R> headFlattened = mapper.apply(head).collect(Collectors.<R>toList());
-		return concat(headFlattened, tail.flatMap(mapper));
+	public <R> LazySeq<R> flatMap(Function<? super E, ? extends Iterable<? extends R>> mapper) {
+		final ArrayList<R> result = new ArrayList<>();
+		mapper.apply(head).forEach(result::add);
+		return concat(result, tail.flatMap(mapper));
 	}
 
 	@Override

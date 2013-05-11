@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.*;
-import java.util.stream.Stream;
 
 class Nil<E> extends LazySeq<E> {
 
@@ -45,7 +44,7 @@ class Nil<E> extends LazySeq<E> {
 	}
 
 	@Override
-	public <R> LazySeq<R> flatMap(Function<? super E, ? extends Stream<? extends R>> mapper) {
+	public <R> LazySeq<R> flatMap(Function<? super E, ? extends Iterable<? extends R>> mapper) {
 		return empty();
 	}
 
