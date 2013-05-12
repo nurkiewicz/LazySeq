@@ -312,10 +312,10 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	}
 
 	public <S, R> LazySeq<R> zip(LazySeq<? extends S> second, BiFunction<? super E, ? super S, ? extends R> zipper) {
-		final R headsZipped = zipper.apply(head(), second.head());
-		if (second.tail().isEmpty()) {
-			return of(headsZipped);
+		if (second.isEmpty()) {
+			return empty();
 		} else {
+			final R headsZipped = zipper.apply(head(), second.head());
 			return cons(headsZipped, () -> tail().zip(second.tail(), zipper));
 		}
 	}
