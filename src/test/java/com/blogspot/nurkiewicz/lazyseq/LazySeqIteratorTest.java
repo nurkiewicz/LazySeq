@@ -282,4 +282,20 @@ public class LazySeqIteratorTest extends AbstractBaseTestCase {
 		verifyNoMoreInteractions(consumerMock);
 	}
 
+	@Test
+	public void shouldAllowJava5ForEachIteration() throws Exception {
+		//given
+		final LazySeq<Character> fixed = of('a', 'b', 'c');
+
+		//when
+		for (char c : fixed) {
+			consumerMock.accept(c);
+		}
+
+		//then
+		verify(consumerMock).accept('a');
+		verify(consumerMock).accept('b');
+		verify(consumerMock).accept('c');
+	}
+
 }
