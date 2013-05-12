@@ -123,7 +123,7 @@ public class LazySeqAllMatchTest extends AbstractBaseTestCase {
 	}
 
 	@Test
-	public void shouldReturnFalseWhenFirstElementOfInifiniteSeqNotMatchesPredicate() throws Exception {
+	public void shouldReturnFalseWhenFirstElementOfInfiniteSeqNotMatchesPredicate() throws Exception {
 		//given
 		final LazySeq<Integer> primes = primes();
 
@@ -159,7 +159,7 @@ public class LazySeqAllMatchTest extends AbstractBaseTestCase {
 	}
 
 	@Test
-	public void shouldEvaluateTailOnlyOnceWhenHeadMatchesButSecondNotMatche() throws Exception {
+	public void shouldEvaluateTailOnlyOnceWhenHeadMatchesButSecondNotMatches() throws Exception {
 		//given
 		final LazySeq<String> lazy = cons("", supplierMock);
 		given(supplierMock.get()).willReturn(of("b"));
