@@ -6,9 +6,21 @@
 
 Lazy sequence remembers already computed values so if you access Nth element, all elements from `1` to `N-1` are computed as well. Despite that `LazySeq`, being at the core of many functional languages and algorithms, is immutable and thread-safe.
 
-## Rational
+## Rationale
 
-TODO
+This library is heavily inspired by [`scala.collection.immutable.Stream`](http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Stream) and aims to provide immutable, thread-safe and easy to use lazy sequence implementation, possibly infinite. See [*Lazy sequences in Scala and Clojure*](http://nurkiewicz.blogspot.no/2013/05/lazy-sequences-in-scala-and-clojure.html) for some use cases.
+
+[`Stream`](http://download.java.net/lambda/b88/docs/api/java/util/stream/Stream.html) class name is already used in Java 8, therefore `LazySeq` was chosen, similar to [`lazy-seq` in Clojure](http://clojuredocs.org/clojure_core/clojure.core/lazy-seq). Speaking of `Stream`, at first it looks like a lazy sequence implementation available out-of-the-box, it even has [`Stream.iterate()` method](http://download.java.net/lambda/b88/docs/api/java/util/stream/Stream.html/java/util/stream/Stream.html#iterate(T, java.util.function.UnaryOperator)). However, quoting Javadoc:
+
+> Streams are not data structures
+
+and:
+
+> Once an operation has been performed on a stream, it is considered consumed and no longer usable for other operations.
+
+In other words `java.util.stream.Stream` is just a thin wrapper around existing collection, suitable for one time use. More akin to `Iterator` than to `Stream` in Scala. This library attempts to fill this niche.
+
+Of course implementing lazy sequence data structure was possible prior to Java 8, but lack of lambdas makes working with such data structure tedious and too verbose.
 
 ## Getting started
 
@@ -128,7 +140,115 @@ For example starting from `10` series looks as follows: 10, 5, 16, 8, 4, 2, 1. T
 
 Let us create a lazy sequence that generates Collatz numbers, but only as many as needed. As stated above, this time our sequence will be finite:
 
+	private LazySeq<Long> collatz(long from) {
+		if (from > 1) {
+			final long next = from % 2 == 0 ? from / 2 : from * 3 + 1;
+			return LazySeq.cons(from, () -> collatz(next));
+		} else {
+			return LazySeq.of(1L);
+		}
+	}
 
+This implementation is driven directly from the definition. For each number greater than `1` return that number + lazily evaluated (`() -> collatz(next)`) rest of the stream. As you can see if `1` is given, we return single element lazy sequence using special `of()` factory method. Let's test it with aforementioned `10`:
+
+	final LazySeq<Long> collatz = collatz(10);
+	
+	collatz.filter(n -> (n > 10)).head();
+	collatz.size();
+
+`filter()` allows us to find first number in the sequence that is greater than `10`. Remember that lazy sequence will have to traverse the contents (evaluate itself), but only to the point where it finds first matching element. Then it stops, ensuring it computes as little as possible.
+
+However `size()`, in order to calculate total number of elements, must traverse the whole sequence. Of course this can only work with finite lazy sequences, calling `size()` on an infinite sequence will end up poorly.
+
+If you play a bit with sequence you will quickly realize that sequences for different numbers [share the same suffix](http://en.wikipedia.org/wiki/File:Collatz-graph-all-30-no27.svg) (always end with the same sequence of numbers). This begs for some caching/structural sharing. See [`CollatzConjectureTest`](https://github.com/nurkiewicz/LazySeq/blob/master/src/test/java/com/blogspot/nurkiewicz/lazyseq/samples/CollatzConjectureTest.java) for details.
+
+## But can it be used to something, you know... useful? Real life?
+
+Infinite sequences of numbers are great, but not very practical in real life. Maybe some more down to earth examples? Imagine you have a collection and you need to pick few items from that collection randomly. Instead of collection I will use a function returning random latin characters:
+
+	private char randomChar() {
+		return (char) ('A' + (int) (Math.random() * ('Z' - 'A' + 1)));
+	}
+
+But there is a twist. You need N (N < 26, number of latin characters) unique values. Simply calling `randomChar()` `N` times doesn't guarantee uniqueness. There are few approaches to this problem, with `LazySeq` it's pretty straightforward:
+
+	LazySeq<Character> charStream = LazySeq.<Character>continually(this::randomChar);
+	LazySeq<Character> uniqueCharStream = charStream.distinct();
+
+`continually()` simply invokes given function for each element when needed. Thus `charStream` will be an infinite stream of random characters. Of course they can't be unique. However `uniqueCharStream` guarantees that its output is unique. It does so by examining next element of underlying `charStream` and rejecting items that already appeared. We can now say `uniqueCharStream.take(4)` and be sure that no duplicates will appear.
+
+Once again notice that `continually(this::randomChar).distinct().take(4)` really calls `randomChar()` only once! As long as you don't consume this sequence, it remains lazy and postpones evaluation as long as possible.
+
+---
+
+Another example involves loading batches (pages) of data from database. Using `ResultSet` or `Iterator` is cumbersome but loading whole data set into memory often not feasible. An alternative involves loading first batch of data eagerly and then providing a function to load next batches. Data is loaded only when it's really needed and we don't suffer performance or scalability issues.
+
+First let's define abstract API for loading batches of data from database:
+
+	public List<Record> loadPage(int offset, int max) {
+		//load records from offset to offset + max
+	}
+
+I abstract from the technology entirely, but you get the point. Imagine that we now define `LazySeq<Record>` that starts from row 0 and loads next pages only when needed:
+
+	public static final int PAGE_SIZE = 5;
+
+	private LazySeq<Record> records(int from) {
+		return LazySeq.concat(
+			loadPage(from, PAGE_SIZE), 
+			() -> records(from + PAGE_SIZE)
+		);
+	}
+
+When creating new `LazySeq<Record>` instance by calling `records(0)` first page of 5 elements is loaded. This means that first 5 sequence elements are already computed. If you ever try to access 6th or above, sequence will automatically load all missing record and cache them. In other words you never compute the same element twice.
+
+Another useful tool when working with sequences are `grouped()` and `sliding()` methods. First partitions input sequence into groups of equal size. Take this as an example, also proving that these methods are as always lazy:
+
+	final LazySeq<Character> chars = LazySeq.of('A', 'B', 'C', 'D', 'E', 'F', 'G');
+
+	chars.grouped(3);
+	//[[A, B, C], ?]
+
+	chars.grouped(3).toList();		//force evaluation
+	//[[A, B, C], [D, E, F], [G]]
+
+and similarly for `sliding()`:
+
+	chars.sliding(3);
+	//[[A, B, C], ?]
+
+	chars.sliding(3).toList();		//force evaluation
+	//[[A, B, C], [B, C, D], [C, D, E], [D, E, F], [E, F, G]]
+
+These two methods are *extremely* useful. You can look at your data through sliding window (e.g. to compute [moving average](https://en.wikipedia.org/wiki/Moving_average)) or partition it to equal-length buckets.
+
+## Java collections framework interoperability
+
+`LazySeq` implements `java.util.List` interface, thus can be used in variety of places. Moreover it also implements Java 8 enhancements to collections, namely streams and collectors:
+
+	lazySeq.
+		stream().
+		map(n -> n + 1).
+		flatMap(n -> asList(0, n - 1).stream()).
+		filter(n -> n != 0).
+		substream(4, 18).
+		limit(10).
+		sorted().
+		distinct().
+		collect(Collectors.toList());
+
+However streams in Java 8 were created to workaround issue that is a foundation of `LazySeq` - lazy evaluation. Example above postpones all itnermediate steps until `collect()` is called. With `LazySeq` you can safely skip `.strema()` and work directly on sequences:
+
+	lazySeq.
+		map(n -> n + 1).
+		flatMap(n -> asList(0, n - 1)).
+		filter(n -> n != 0).
+		slice(4, 18).
+		limit(10).
+		sorted().
+		distinct();
+
+Moreover `LazySeq` provides special purpose collector (see: `LazySeq.toLazySeq()`) that avoids evaluation even when used with `collect()` - which normally forces full collection computation.
 
 ## Data structure details
 
@@ -155,9 +275,33 @@ However in case of lazy sequence *tail* is given as a function, not a value. Inv
 			return tailOrNull;
 		}
 
+For full implementation see [`Cons.java`](https://github.com/nurkiewicz/LazySeq/blob/master/src/main/java/com/blogspot/nurkiewicz/lazyseq/Cons.java) and [`FixedCons.java`](https://github.com/nurkiewicz/LazySeq/blob/master/src/main/java/com/blogspot/nurkiewicz/lazyseq/FixedCons.java) used when `tail` is known at creation time (for example `LazySeq.of(1, 2)` as opposed to `LazySeq.cons(1, () -> someTailFun()`).
+
 ## Pitfalls and common dangers
 
+### Evaluating too much
+
+### Holding unnecessary reference to head
+
+### Converting to plain Java collections
+
 ## Performance, time and space complexity
+
+`head()` of every sequence (except empty) is always computed eagerly, thus accessing it is fast `O(1)`. Computing `tail()` may take everything from `O(1)` (if it was already computed) to infinite time. As an example take this valid stream:
+
+	import static com.blogspot.nurkiewicz.lazyseq.LazySeq.cons;
+	import static com.blogspot.nurkiewicz.lazyseq.LazySeq.continually;
+
+	LazySeq<Integer> oneAndZeros = cons(
+		1, 
+		() -> continually(0)).filter(x -> (x > 0)
+	);
+
+It represents `1` followed by infinite number of `0`s. By filtering all positive numbers (`x > 0`) we get sequence with same head, but filtering tail is delayed. However if we now carelessly call `oneAndZeros.tail()`, `LazySeq` will keep computing more and more of this infinite sequences, but since there is no positive element after initial `1`, this operation will run forever, eventually throwing `StackOverflowError` or `OutOfMemoryError` (this is an implementation detail). However if you ever reach this state, it's probably a programming bug or misusing of the library. Typically `tail()` will be close to `O(1)`.
+
+Most operations on `LazySeq` are `O(1)` since they are lazy. Some operations, like `get(n)` or `drop(n)` are `O(n)`. In general run time will be similar to normal linked list.
+
+Because `LazySeq` remembers all already computed values in a single linked list, memory consumption is always `O(n)`. 
 
 ## Troubleshooting
 
@@ -175,6 +319,8 @@ it means you are not compiling using Java 8. [Download JDK 8 with lambda support
 	$ export JAVA_HOME=/path/to/jdk
 
 ### I get `StackOverflowError` or program hangs infinitely
+
+When working with `LazySeq` I sometimes get `StackOverflowError` or `OutOfMemoryError`:
  
 	java.lang.StackOverflowError
 		at sun.misc.Unsafe.allocateInstance(Native Method)
@@ -190,6 +336,8 @@ it means you are not compiling using Java 8. [Download JDK 8 with lambda support
 		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
 		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
 		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+
+When working with possibly infinite data structures, care must be taken. Avoid calling operations that *must* (`size()`, `allMatch()`, `minBy()`, `forEach()`, reduce(), ...) or *can* (`filter()`, `distinct()`, ...) traverse the whole sequence in order to give correct results. See *Pitfalls* for more examples and ways to avoid.
 
 ## Possible improvements
 
