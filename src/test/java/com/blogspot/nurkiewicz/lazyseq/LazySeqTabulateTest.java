@@ -1,5 +1,6 @@
 package com.blogspot.nurkiewicz.lazyseq;
 
+import com.blogspot.nurkiewicz.lazyseq.samples.Seqs;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
@@ -29,7 +30,7 @@ public class LazySeqTabulateTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldCreateInfiniteStreamOfPiEstimation() throws Exception {
 		//given
-		final LazySeq<Double> piSeriesEstimation = SampleStreams.piSeriesEstimation();
+		final LazySeq<Double> piSeriesEstimation = Seqs.piSeriesEstimation();
 
 		//when
 		final double piEstimation = piSeriesEstimation.
@@ -44,7 +45,7 @@ public class LazySeqTabulateTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldCreateInfiniteStreamOfPiEstimationWithTransforming() throws Exception {
 		//given
-		final LazySeq<Double> piSeriesEstimation = SampleStreams.piSeriesEstimation().map(x -> x * 4);
+		final LazySeq<Double> piSeriesEstimation = Seqs.piSeriesEstimation().map(x -> x * 4);
 
 		//when
 		final double piEstimation = piSeriesEstimation.

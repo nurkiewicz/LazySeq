@@ -3,7 +3,7 @@ package com.blogspot.nurkiewicz.lazyseq;
 import org.testng.annotations.Test;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.*;
-import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.primes;
+import static com.blogspot.nurkiewicz.lazyseq.samples.Seqs.primes;
 import static java.util.Arrays.asList;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -69,7 +69,7 @@ public class LazySeqDistinctTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldReturnAllElementsOnFixedAlreadyDistinctSeq() throws Exception {
 		//given
-		final LazySeq<Integer> oneToFive = SampleStreams.naturals(1).take(5);
+		final LazySeq<Integer> oneToFive = numbers(1).take(5);
 
 		//when
 		final LazySeq<Integer> dist = oneToFive.distinct();

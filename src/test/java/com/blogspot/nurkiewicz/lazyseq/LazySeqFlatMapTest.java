@@ -47,7 +47,7 @@ public class LazySeqFlatMapTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldLazilyFlattenInfiniteStream() throws Exception {
 		//given
-		final LazySeq<Integer> raw = SampleStreams.naturals(1);
+		final LazySeq<Integer> raw = LazySeq.numbers(1);
 
 		//when
 		final LazySeq<Integer> flat = raw.flatMap(i -> asList(i, 0, -i));
@@ -74,7 +74,8 @@ public class LazySeqFlatMapTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldKeepEvaluatingIfFirstFlatMapResultIsEmpty() throws Exception {
 		//given
-		final LazySeq<Integer> raw = SampleStreams.naturals(-10);
+		int from = -10;
+		final LazySeq<Integer> raw = LazySeq.numbers(from);
 
 		//when
 		final LazySeq<Integer> flat = raw.flatMap(LazySeqFlatMapTest::flatMapFun);

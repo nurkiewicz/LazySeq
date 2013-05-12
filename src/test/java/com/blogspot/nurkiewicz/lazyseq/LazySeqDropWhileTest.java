@@ -1,5 +1,6 @@
 package com.blogspot.nurkiewicz.lazyseq;
 
+import com.blogspot.nurkiewicz.lazyseq.samples.Seqs;
 import org.testng.annotations.Test;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.empty;
@@ -87,7 +88,7 @@ public class LazySeqDropWhileTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldReturnWholeInfiniteSeqWhenFirstElementFailsPredicate() throws Exception {
 		//given
-		final LazySeq<Integer> fixed = SampleStreams.primes();
+		final LazySeq<Integer> fixed = Seqs.primes();
 
 		//when
 		final LazySeq<Integer> filtered = fixed.dropWhile(x -> x < 0);
@@ -99,7 +100,7 @@ public class LazySeqDropWhileTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldReturnSubSeqOfInfiniteSeqWhenFewFirstElementsMatchPredicate() throws Exception {
 		//given
-		final LazySeq<Integer> fixed = SampleStreams.primes();
+		final LazySeq<Integer> fixed = Seqs.primes();
 
 		//when
 		final LazySeq<Integer> filtered = fixed.dropWhile(x -> x < 10);

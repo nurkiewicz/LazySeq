@@ -145,6 +145,22 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		return cons(value, () -> continually(value));
 	}
 
+	public static LazySeq<Integer> numbers(int start) {
+		return numbers(start, 1);
+	}
+
+	public static LazySeq<Integer> numbers(int start, int step) {
+		return cons(start, () -> numbers(start + step, step));
+	}
+
+	public static LazySeq<Double> numbers(double start) {
+		return numbers(start, 1.0);
+	}
+
+	public static LazySeq<Double> numbers(double start, double step) {
+		return cons(start, () -> numbers(start + step, step));
+	}
+
 	protected abstract boolean isTailDefined();
 
 	@Override

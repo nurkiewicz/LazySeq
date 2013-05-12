@@ -1,5 +1,6 @@
 package com.blogspot.nurkiewicz.lazyseq;
 
+import com.blogspot.nurkiewicz.lazyseq.samples.Seqs;
 import org.mockito.Mock;
 import org.testng.annotations.Test;
 
@@ -136,7 +137,7 @@ public class LazySeqAnyMatchTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldReturnTrueWhenFirstElementMatchesForInfiniteStream() throws Exception {
 		//given
-		final LazySeq<Integer> primes = SampleStreams.primes();
+		final LazySeq<Integer> primes = Seqs.primes();
 
 		//when
 		final boolean any = primes.anyMatch(x -> x < 10);
@@ -148,7 +149,7 @@ public class LazySeqAnyMatchTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldReturnTrueWhenSomeElementMatchesForInfiniteStream() throws Exception {
 		//given
-		final LazySeq<Integer> primes = SampleStreams.primes();
+		final LazySeq<Integer> primes = Seqs.primes();
 
 		//when
 		final boolean any = primes.anyMatch(x -> x > 1000);

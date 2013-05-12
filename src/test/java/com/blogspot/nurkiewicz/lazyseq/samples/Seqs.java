@@ -1,4 +1,6 @@
-package com.blogspot.nurkiewicz.lazyseq;
+package com.blogspot.nurkiewicz.lazyseq.samples;
+
+import com.blogspot.nurkiewicz.lazyseq.LazySeq;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.iterate;
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.tabulate;
@@ -7,14 +9,10 @@ import static com.blogspot.nurkiewicz.lazyseq.LazySeq.tabulate;
  * @author Tomasz Nurkiewicz
  * @since 5/11/13, 11:27 AM
  */
-public class SampleStreams {
-
-	public static LazySeq<Integer> naturals(int from) {
-		return iterate(from, x -> x + 1);
-	}
+public class Seqs {
 
 	public static LazySeq<Integer> primes() {
-		return iterate(2, SampleStreams::nextPrimeAfter);
+		return iterate(2, Seqs::nextPrimeAfter);
 	}
 
 	private static int nextPrimeAfter(final int after) {

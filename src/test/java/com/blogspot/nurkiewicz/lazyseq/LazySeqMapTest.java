@@ -50,7 +50,7 @@ public class LazySeqMapTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldMapInfiniteSeq() throws Exception {
 		//given
-		final LazySeq<Integer> naturals = SampleStreams.naturals(1);
+		final LazySeq<Integer> naturals = LazySeq.numbers(1);
 
 		//when
 		final LazySeq<Integer> multiplied = naturals.map(x -> x * 10);

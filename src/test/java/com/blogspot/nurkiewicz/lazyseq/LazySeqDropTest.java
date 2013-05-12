@@ -1,12 +1,12 @@
 package com.blogspot.nurkiewicz.lazyseq;
 
+import com.blogspot.nurkiewicz.lazyseq.samples.Seqs;
 import org.mockito.Mock;
 import org.testng.annotations.Test;
 
 import java.util.function.Supplier;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.*;
-import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.naturals;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
 import static org.mockito.BDDMockito.given;
@@ -55,7 +55,7 @@ public class LazySeqDropTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldThrowWhenNegativeStartIndexOnInfiniteSeq() throws Exception {
 		//given
-		final LazySeq<Integer> infinite = SampleStreams.primes();
+		final LazySeq<Integer> infinite = Seqs.primes();
 
 		try {
 			//when
@@ -90,7 +90,7 @@ public class LazySeqDropTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldReturnSubstreamOfInfiniteStream() throws Exception {
 		//given
-		final LazySeq<Integer> naturals = naturals(0);
+		final LazySeq<Integer> naturals = numbers(0);
 
 		//when
 		final LazySeq<Integer> fromFive = naturals.drop((long) 5);

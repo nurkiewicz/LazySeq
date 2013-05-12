@@ -3,7 +3,6 @@ package com.blogspot.nurkiewicz.lazyseq;
 import org.testng.annotations.Test;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.*;
-import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.naturals;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyIterator;
 import static java.util.Collections.emptyList;
@@ -87,49 +86,49 @@ public class LazySeqBuildingTest extends AbstractBaseTestCase {
 
 	@Test
 	public void shouldCreateInfiniteSeqStartingFromFewFixedElements() throws Exception {
-		final LazySeq<Integer> infinite = of(1, 2, 3, () -> naturals(4));
+		final LazySeq<Integer> infinite = of(1, 2, 3, () -> numbers(4));
 
 		assertThat(infinite.take(10)).containsExactly(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	}
 
 	@Test
 	public void shouldCreateInfiniteSeqStartingFromIterable() throws Exception {
-		final LazySeq<Integer> infinite = concat(asList(1, 2, 3), () -> naturals(4));
+		final LazySeq<Integer> infinite = concat(asList(1, 2, 3), () -> numbers(4));
 
 		assertThat(infinite.take(10)).containsExactly(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	}
 
 	@Test
 	public void shouldCreateInfiniteSeqStartingFromIterableAndConcreteSeq() throws Exception {
-		final LazySeq<Integer> infinite = concat(asList(1, 2, 3), naturals(4));
+		final LazySeq<Integer> infinite = concat(asList(1, 2, 3), numbers(4));
 
 		assertThat(infinite.take(10)).containsExactly(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	}
 
 	@Test
 	public void shouldCreateInfiniteSeqStartingFromIterator() throws Exception {
-		final LazySeq<Integer> infinite = concat(asList(1, 2, 3).iterator(), () -> naturals(4));
+		final LazySeq<Integer> infinite = concat(asList(1, 2, 3).iterator(), () -> numbers(4));
 
 		assertThat(infinite.take(10)).containsExactly(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	}
 
 	@Test
 	public void shouldCreateInfiniteSeqStartingFromIteratorAndConcreteSeq() throws Exception {
-		final LazySeq<Integer> infinite = concat(asList(1, 2, 3).iterator(), naturals(4));
+		final LazySeq<Integer> infinite = concat(asList(1, 2, 3).iterator(), numbers(4));
 
 		assertThat(infinite.take(10)).containsExactly(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	}
 
 	@Test
 	public void shouldCreateInfiniteSeqWithConsAndSupplier() throws Exception {
-		final LazySeq<Integer> infinite = cons(1, () -> naturals(2));
+		final LazySeq<Integer> infinite = cons(1, () -> numbers(2));
 
 		assertThat(infinite.take(10)).containsExactly(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	}
 
 	@Test
 	public void shouldCreateInfiniteSeqWithConsAndConcreteSeq() throws Exception {
-		final LazySeq<Integer> infinite = cons(1, naturals(2));
+		final LazySeq<Integer> infinite = cons(1, numbers(2));
 
 		assertThat(infinite.take(10)).containsExactly(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	}

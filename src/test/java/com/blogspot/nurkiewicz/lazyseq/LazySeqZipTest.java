@@ -4,8 +4,7 @@ import org.mockito.Mock;
 import org.testng.annotations.Test;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.*;
-import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.naturals;
-import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.primes;
+import static com.blogspot.nurkiewicz.lazyseq.samples.Seqs.primes;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
@@ -141,7 +140,7 @@ public class LazySeqZipTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldZipTwoInfiniteSequences() throws Exception {
 		//given
-		final LazySeq<Integer> naturals = naturals(1);
+		final LazySeq<Integer> naturals = numbers(1);
 		final LazySeq<Integer> primes = primes();
 
 		//when
@@ -154,7 +153,7 @@ public class LazySeqZipTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldZipFiniteWithInfiniteSeq() throws Exception {
 		//given
-		final LazySeq<Integer> naturals = naturals(1).take(5);
+		final LazySeq<Integer> naturals = numbers(1).take(5);
 		final LazySeq<Integer> primes = primes();
 
 		//when
@@ -167,7 +166,7 @@ public class LazySeqZipTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldZipInfiniteWithFiniteSeq() throws Exception {
 		//given
-		final LazySeq<Integer> naturals = naturals(1);
+		final LazySeq<Integer> naturals = numbers(1);
 		final LazySeq<Integer> primes = primes().take(5);
 
 		//when

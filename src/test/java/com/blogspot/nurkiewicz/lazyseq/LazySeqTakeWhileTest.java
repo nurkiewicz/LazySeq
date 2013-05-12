@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import java.util.function.Supplier;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.*;
-import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.primes;
+import static com.blogspot.nurkiewicz.lazyseq.samples.Seqs.primes;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verifyZeroInteractions;
 

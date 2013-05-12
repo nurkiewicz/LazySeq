@@ -89,7 +89,7 @@ public class LazySeqFilterTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldFilterSeveralItemsFromFiniteSeq() throws Exception {
 		//given
-		final LazySeq<Integer> naturals = SampleStreams.naturals(1);
+		final LazySeq<Integer> naturals = numbers(1);
 
 		//when
 		final LazySeq<Integer> filtered = naturals.filter(x -> x % 3 == 0);

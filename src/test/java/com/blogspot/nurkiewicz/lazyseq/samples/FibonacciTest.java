@@ -1,5 +1,7 @@
-package com.blogspot.nurkiewicz.lazyseq;
+package com.blogspot.nurkiewicz.lazyseq.samples;
 
+import com.blogspot.nurkiewicz.lazyseq.AbstractBaseTestCase;
+import com.blogspot.nurkiewicz.lazyseq.LazySeq;
 import org.testng.annotations.Test;
 
 import static java.util.Arrays.asList;
@@ -9,7 +11,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
  * @author Tomasz Nurkiewicz
  * @since 5/12/13, 3:30 PM
  */
-public class FibonacciTest {
+public class FibonacciTest extends AbstractBaseTestCase {
 
 	@Test
 	public void shouldGenerateFibonacciSequence() throws Exception {

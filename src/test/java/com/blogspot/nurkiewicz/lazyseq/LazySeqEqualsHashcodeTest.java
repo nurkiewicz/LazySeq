@@ -3,7 +3,7 @@ package com.blogspot.nurkiewicz.lazyseq;
 import org.testng.annotations.Test;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.*;
-import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.primes;
+import static com.blogspot.nurkiewicz.lazyseq.samples.Seqs.primes;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**

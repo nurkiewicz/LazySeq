@@ -1,5 +1,6 @@
-package com.blogspot.nurkiewicz.lazyseq;
+package com.blogspot.nurkiewicz.lazyseq.samples;
 
+import com.blogspot.nurkiewicz.lazyseq.LazySeq;
 import org.testng.annotations.Test;
 
 /**

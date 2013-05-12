@@ -248,7 +248,7 @@ public class LazySeqIteratorTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldCreateIteratorForInfiniteSeq() throws Exception {
 		//given
-		final LazySeq<Integer> naturals = SampleStreams.naturals(1);
+		final LazySeq<Integer> naturals = numbers(1);
 
 		//when
 		final Iterator<Integer> iterator = naturals.iterator();

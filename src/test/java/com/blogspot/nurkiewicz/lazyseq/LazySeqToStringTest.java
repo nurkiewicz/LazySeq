@@ -6,7 +6,6 @@ import java.util.function.Supplier;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.empty;
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
-import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.naturals;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
@@ -29,7 +28,7 @@ public class LazySeqToStringTest extends AbstractBaseTestCase {
 
 	@Test
 	public void shouldShowOnlyFirstElementOfInfiniteSeqAfterCreation() throws Exception {
-		assertThat(naturals(1).toString()).isEqualToIgnoringCase("[1, ?]");
+		assertThat(LazySeq.numbers(1).toString()).isEqualToIgnoringCase("[1, ?]");
 	}
 
 	@Test
@@ -47,7 +46,7 @@ public class LazySeqToStringTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldIncludeAllEvaluatedElementsInToString() throws Exception {
 		//given
-		final LazySeq<Integer> naturals = naturals(0);
+		final LazySeq<Integer> naturals = LazySeq.numbers(0);
 		naturals.get(4);        //force evaluation
 
 		//when

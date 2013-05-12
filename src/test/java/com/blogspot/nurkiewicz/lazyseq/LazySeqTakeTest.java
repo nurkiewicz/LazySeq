@@ -72,7 +72,7 @@ public class LazySeqTakeTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldTrimInfiniteSeq() throws Exception {
 		//given
-		final LazySeq<Integer> shortSeq = SampleStreams.naturals(1);
+		final LazySeq<Integer> shortSeq = LazySeq.numbers(1);
 
 		//when
 		final LazySeq<Integer> limited = shortSeq.limit(3);

@@ -1,5 +1,7 @@
-package com.blogspot.nurkiewicz.lazyseq;
+package com.blogspot.nurkiewicz.lazyseq.samples;
 
+import com.blogspot.nurkiewicz.lazyseq.AbstractBaseTestCase;
+import com.blogspot.nurkiewicz.lazyseq.LazySeq;
 import com.google.common.collect.ImmutableMap;
 import org.testng.annotations.Test;
 
@@ -17,7 +19,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
  * @author Tomasz Nurkiewicz
  * @since 5/12/13, 4:01 PM
  */
-public class CollatzConjectureTest {
+public class CollatzConjectureTest extends AbstractBaseTestCase {
 
 	@Test
 	public void shouldProduceWholeCollatzConjecture() throws Exception {

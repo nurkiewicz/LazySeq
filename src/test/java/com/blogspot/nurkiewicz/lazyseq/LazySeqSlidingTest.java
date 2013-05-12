@@ -6,7 +6,7 @@ import java.util.List;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.empty;
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
-import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.primes;
+import static com.blogspot.nurkiewicz.lazyseq.samples.Seqs.primes;
 import static java.util.Arrays.asList;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
