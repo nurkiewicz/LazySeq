@@ -428,6 +428,15 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		return of(list);
 	}
 
+	public boolean startsWith(Iterable<E> prefix) {
+		return startsWith(prefix.iterator());
+	}
+
+	public boolean startsWith(Iterator<E> iterator) {
+		return !iterator.hasNext() ||
+				head().equals(iterator.next()) && tail().startsWith(iterator);
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

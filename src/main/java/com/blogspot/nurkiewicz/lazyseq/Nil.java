@@ -1,9 +1,6 @@
 package com.blogspot.nurkiewicz.lazyseq;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.*;
 
 class Nil<E> extends LazySeq<E> {
@@ -128,6 +125,11 @@ class Nil<E> extends LazySeq<E> {
 	@Override
 	public LazySeq<E> distinct() {
 		return instance();
+	}
+
+	@Override
+	public boolean startsWith(Iterator<E> iterator) {
+		return !iterator.hasNext();
 	}
 
 	@Override
