@@ -1,9 +1,11 @@
 package com.blogspot.nurkiewicz.lazyseq.samples;
 
 import com.blogspot.nurkiewicz.lazyseq.LazySeq;
+import org.quartz.CronExpression;
 
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.iterate;
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.tabulate;
+import java.util.Date;
+
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.*;
 
 /**
  * @author Tomasz Nurkiewicz
@@ -39,5 +41,15 @@ public class Seqs {
 	public static LazySeq<Double> piSeriesEstimation() {
 		return tabulate(0, n -> (1 - (n % 2) * 2) / (2 * n + 1.0));
 	}
+
+	public static LazySeq<Date> cronFireTimes(CronExpression expr, Date after) {
+		final Date nextFireTime = expr.getNextValidTimeAfter(after);
+		if (nextFireTime == null) {
+			return empty();
+		} else {
+			return cons(nextFireTime, cronFireTimes(expr, nextFireTime));
+		}
+	}
+
 
 }

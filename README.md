@@ -31,12 +31,6 @@ it means you are not compiling using Java 8. [Download JDK 8 with lambda support
 		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
 		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
 
-
-## TODO
-* More complex test cases:
-** CRON expressions `LazySeq`
-** (In)finite `LazySeq` of database records, fetched page at a time (buffering/caching)
-
 ## Possible improvements
 * Just like `FixedCons` is used when tail is known up-front, consider `IterableCons` that wraps existing `Iterable` in one node rather than building `FixedCons` hierarchy. This can be used for all `concat` methods.
 
