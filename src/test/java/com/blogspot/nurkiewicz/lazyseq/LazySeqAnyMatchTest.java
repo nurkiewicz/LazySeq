@@ -122,7 +122,7 @@ public class LazySeqAnyMatchTest extends AbstractBaseTestCase {
 	}
 
 	@Test
-	public void shouldReturnFalseWhenNoneOfTheElementsOfLayFinitSeqMatchPredicate() throws Exception {
+	public void shouldReturnFalseWhenNoneOfTheElementsOfLayFiniteSeqMatchPredicate() throws Exception {
 		//given
 		final LazySeq<Integer> lazy = cons(3, () -> cons(-5, () -> of(9)));
 
