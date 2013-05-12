@@ -105,8 +105,9 @@ public class LazySeqMinMaxTest extends AbstractBaseTestCase {
 						() -> cons(8,
 								() -> cons(5,
 										() -> cons(-4,
-												() -> cons(11, cons(2,
-														() -> of(1))))))));
+												() -> cons(11,
+														() -> cons(2,
+																() -> of(1))))))));
 
 		//when
 		final Optional<Integer> min = lazy.min((a, b) -> a - b);
@@ -125,8 +126,9 @@ public class LazySeqMinMaxTest extends AbstractBaseTestCase {
 						() -> cons(8,
 								() -> cons(5,
 										() -> cons(-4,
-												() -> cons(11, cons(2,
-														() -> of(1))))))));
+												() -> cons(11,
+														() -> cons(2,
+																() -> of(1))))))));
 
 		//when
 		final Optional<Integer> min = lazy.minBy(Math::abs);
