@@ -90,10 +90,10 @@ public class LazySeqGetTest extends AbstractBaseTestCase {
 		final LazySeq<Integer> naturals = naturals(0);
 
 		//when
-		final Integer natural = naturals.get(1_000_000);
+		final Integer natural = naturals.get(100_000);
 
 		//then
-		assertThat(natural).isEqualTo(1_000_000);
+		assertThat(natural).isEqualTo(100_000);
 	}
 
 }
