@@ -427,6 +427,23 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		list.sort(comparator);
 		return of(list);
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof LazySeq)) return false;
+
+		LazySeq right = (LazySeq) o;
+		return !right.isEmpty() &&
+				head().equals(right.head()) &&
+				tail().equals(right.tail());
+	}
+
+	@Override
+	public int hashCode() {
+		return head().hashCode() + tail().hashCode() * 31;
+	}
+
 }
 
 

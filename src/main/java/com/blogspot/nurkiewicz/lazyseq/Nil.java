@@ -131,6 +131,16 @@ class Nil<E> extends LazySeq<E> {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		return o instanceof Nil;
+	}
+
+	@Override
+	public int hashCode() {
+		return 0;
+	}
+
+	@Override
 	public boolean isEmpty() {
 		return true;
 	}
