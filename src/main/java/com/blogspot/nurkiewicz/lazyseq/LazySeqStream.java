@@ -145,27 +145,27 @@ class LazySeqStream<E> implements Stream<E> {
 
 	@Override
 	public Spliterator<E> spliterator() {
-		throw new UnsupportedOperationException("Not yet implemented: spliterator");
+		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
 	public boolean isParallel() {
-		throw new UnsupportedOperationException("Not yet implemented: isParallel");
+		return false;
 	}
 
 	@Override
 	public Stream<E> sequential() {
-		throw new UnsupportedOperationException("Not yet implemented: sequential");
+		return this;
 	}
 
 	@Override
 	public Stream<E> parallel() {
-		throw new UnsupportedOperationException("Not yet implemented: parallel");
+		return this;
 	}
 
 	@Override
 	public Stream<E> unordered() {
-		throw new UnsupportedOperationException("Not yet implemented: unordered");
+		return this;
 	}
 
 	@Override
@@ -200,7 +200,7 @@ class LazySeqStream<E> implements Stream<E> {
 
 	@Override
 	public Stream<E> distinct() {
-		throw new UnsupportedOperationException("Not yet implemented: distinct");
+		return underlying.distinct().stream();
 	}
 
 	@Override

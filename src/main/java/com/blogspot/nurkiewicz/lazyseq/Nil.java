@@ -8,6 +8,13 @@ import java.util.function.*;
 
 class Nil<E> extends LazySeq<E> {
 
+	private static final Nil<?> NIL = new Nil<>();
+
+	@SuppressWarnings("unchecked")
+	public static <E> Nil<E> instance() {
+		return (Nil<E>) NIL;
+	}
+
 	@Override
 	public E head() {
 		throw new NoSuchElementException("head of empty stream");
@@ -35,27 +42,27 @@ class Nil<E> extends LazySeq<E> {
 
 	@Override
 	public <R> LazySeq<R> map(Function<? super E, ? extends R> mapper) {
-		return empty();
+		return instance();
 	}
 
 	@Override
 	public LazySeq<E> filter(Predicate<? super E> predicate) {
-		return empty();
+		return instance();
 	}
 
 	@Override
 	public <R> LazySeq<R> flatMap(Function<? super E, ? extends Iterable<? extends R>> mapper) {
-		return empty();
+		return instance();
 	}
 
 	@Override
 	protected LazySeq<E> takeUnsafe(long maxSize) {
-		return empty();
+		return instance();
 	}
 
 	@Override
 	protected LazySeq<E> dropUnsafe(long startInclusive) {
-		return empty();
+		return instance();
 	}
 
 	@Override
@@ -90,32 +97,37 @@ class Nil<E> extends LazySeq<E> {
 
 	@Override
 	public <S, R> LazySeq<R> zip(LazySeq<? extends S> second, BiFunction<? super E, ? super S, ? extends R> zipper) {
-		return empty();
+		return instance();
 	}
 
 	@Override
 	public LazySeq<E> takeWhile(Predicate<? super E> predicate) {
-		return empty();
+		return instance();
 	}
 
 	@Override
 	public LazySeq<E> dropWhile(Predicate<? super E> predicate) {
-		return empty();
+		return instance();
 	}
 
 	@Override
 	public LazySeq<List<E>> slidingUnsafe(int size) {
-		return empty();
+		return instance();
 	}
 
 	@Override
 	protected LazySeq<List<E>> groupedUnsafe(int size) {
-		return empty();
+		return instance();
 	}
 
 	@Override
 	public LazySeq<E> scan(E initial, BinaryOperator<E> fun) {
 		return of(initial);
+	}
+
+	@Override
+	public LazySeq<E> distinct() {
+		return instance();
 	}
 
 	@Override

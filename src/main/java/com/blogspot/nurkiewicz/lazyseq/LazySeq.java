@@ -11,7 +11,10 @@ import java.util.stream.Stream;
  */
 public abstract class LazySeq<E> extends AbstractList<E> {
 
-	private static final LazySeq<?> NIL = new Nil<>();
+	@SuppressWarnings("unchecked")
+	public static <E> LazySeq<E> empty() {
+		return Nil.instance();
+	}
 
 	public abstract E head();
 
@@ -109,11 +112,6 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 
 	public static <E> LazySeq<E> cons(E head, LazySeq<E> tail) {
 		return new FixedCons<>(head, tail);
-	}
-
-	@SuppressWarnings("unchecked")
-	public static <E> LazySeq<E> empty() {
-		return (LazySeq<E>) NIL;
 	}
 
 	public static <E> LazySeq<E> iterate(E initial, Function<E, E> fun) {
@@ -406,6 +404,19 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		return cons(initial, () -> tail().scan(fun.apply(initial, head()), fun));
 	}
 
+	public LazySeq<E> distinct() {
+		return filterOutSeen(new HashSet<>());
+	}
+
+	private LazySeq<E> filterOutSeen(Set<E> exclude) {
+		final LazySeq<E> moreDistinct = filter(e -> !exclude.contains(e));
+		if (moreDistinct.isEmpty()) {
+			return empty();
+		}
+		final E next = moreDistinct.head();
+		exclude.add(next);
+		return cons(next, () -> moreDistinct.tail().filterOutSeen(exclude));
+	}
 }
 
 
