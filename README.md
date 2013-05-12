@@ -2,21 +2,37 @@
 
 ## Troubleshooting
 
-* `invalid target release: 1.8` during maven build
+### Error `invalid target release: 1.8` during maven build
 
-	If you see this error message during maven build:
+If you see this error message during maven build:
 
-		[INFO] BUILD FAILURE
-		...
-		[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.1:compile (default-compile) on project lazyseq: Fatal error compiling: invalid target release: 1.8 -> [Help 1]
+	[INFO] BUILD FAILURE
+	...
+	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.1:compile (default-compile) on project lazyseq: Fatal error compiling: invalid target release: 1.8 -> [Help 1]
 
-	it means you are not compiling using Java 8. [Download JDK 8 with lambda support](https://jdk8.java.net/lambda/) and let maven use it:
+it means you are not compiling using Java 8. [Download JDK 8 with lambda support](https://jdk8.java.net/lambda/) and let maven use it:
 
-		$ export JAVA_HOME=/path/to/jdk
+	$ export JAVA_HOME=/path/to/jdk
+
+### I get `StackOverflowError` or program hangs infinitely
+ 
+	java.lang.StackOverflowError
+		at sun.misc.Unsafe.allocateInstance(Native Method)
+		at java.lang.invoke.DirectMethodHandle.allocateInstance(DirectMethodHandle.java:426)
+		at com.blogspot.nurkiewicz.lazyseq.LazySeq.iterate(LazySeq.java:118)
+		at com.blogspot.nurkiewicz.lazyseq.LazySeq.lambda$0(LazySeq.java:118)
+		at com.blogspot.nurkiewicz.lazyseq.LazySeq$$Lambda$2.get(Unknown Source)
+		at com.blogspot.nurkiewicz.lazyseq.Cons.tail(Cons.java:32)
+		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
 
 
 ## TODO
-* `equals()`/`hashCode()`
 * More complex test cases:
 ** CRON expressions `LazySeq`
 ** [Collatz conjecture](http://en.wikipedia.org/wiki/Collatz_conjecture)
