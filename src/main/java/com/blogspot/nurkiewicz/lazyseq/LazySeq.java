@@ -248,12 +248,28 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		return result;
 	}
 
-	public Optional<E> min(Comparator<? super E> comparator) {
-		return greatestByComparator(comparator.reverseOrder());
+	public <C extends Comparable<? super C>> Optional<E> maxBy(Function<E, C> propertyFun) {
+		return max(propertyFunToComparator(propertyFun));
 	}
 
 	public Optional<E> max(Comparator<? super E> comparator) {
 		return greatestByComparator(comparator);
+	}
+
+	public <C extends Comparable<? super C>> Optional<E> minBy(Function<E, C> propertyFun) {
+		return min(propertyFunToComparator(propertyFun));
+	}
+
+	public Optional<E> min(Comparator<? super E> comparator) {
+		return greatestByComparator(comparator.reverseOrder());
+	}
+
+	private <C extends Comparable<? super C>> Comparator<? super E> propertyFunToComparator(Function<E, C> propertyFun) {
+		return (a, b) -> {
+			final C aProperty = propertyFun.apply(a);
+			final C bProperty = propertyFun.apply(b);
+			return aProperty.compareTo(bProperty);
+		};
 	}
 
 	private Optional<E> greatestByComparator(Comparator<? super E> comparator) {

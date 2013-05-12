@@ -28,6 +28,20 @@ public class LazySeqMinMaxTest extends AbstractBaseTestCase {
 	}
 
 	@Test
+	public void shouldReturnEmptyOptionalOnEmptySeqByProperty() throws Exception {
+		//given
+		final LazySeq<Integer> empty = empty();
+
+		//when
+		final Optional<Integer> min = empty.minBy(Math::abs);
+		final Optional<Integer> max = empty.maxBy(Math::abs);
+
+		//then
+		assertThat(min).isEqualTo(Optional.<Integer>empty());
+		assertThat(max).isEqualTo(Optional.<Integer>empty());
+	}
+
+	@Test
 	public void shouldReturnThisElementWhenSingleElementSeq() throws Exception {
 		//given
 		final LazySeq<Integer> single = of(1);
@@ -42,13 +56,27 @@ public class LazySeqMinMaxTest extends AbstractBaseTestCase {
 	}
 
 	@Test
-	public void shouldFindBiggestAndSmallestValueInSeqOfIntegers() throws Exception {
+	public void shouldReturnThisElementWhenSingleElementSeqByProperty() throws Exception {
 		//given
-		final LazySeq<Integer> single = of(3, -2, 8, 5, -4, 11, 2);
+		final LazySeq<Integer> single = of(1);
 
 		//when
-		final Optional<Integer> min = single.min((a, b) -> a - b);
-		final Optional<Integer> max = single.max((a, b) -> a - b);
+		final Optional<Integer> min = single.minBy(Math::abs);
+		final Optional<Integer> max = single.maxBy(Math::abs);
+
+		//then
+		assertThat(min).isEqualTo(Optional.of(1));
+		assertThat(max).isEqualTo(Optional.of(1));
+	}
+
+	@Test
+	public void shouldFindBiggestAndSmallestValueInSeqOfIntegers() throws Exception {
+		//given
+		final LazySeq<Integer> fixed = of(3, -2, 8, 5, -4, 11, 2, 1);
+
+		//when
+		final Optional<Integer> min = fixed.min((a, b) -> a - b);
+		final Optional<Integer> max = fixed.max((a, b) -> a - b);
 
 		//then
 		assertThat(min).isEqualTo(Optional.of(-4));
@@ -56,21 +84,56 @@ public class LazySeqMinMaxTest extends AbstractBaseTestCase {
 	}
 
 	@Test
+	public void shouldFindBiggestAndSmallestValueInSeqOfIntegersByProperty() throws Exception {
+		//given
+		final LazySeq<Integer> fixed = of(3, -2, 8, 5, -4, 11, 2, 1);
+
+		//when
+		final Optional<Integer> min = fixed.minBy(Math::abs);
+		final Optional<Integer> max = fixed.maxBy(Math::abs);
+
+		//then
+		assertThat(min).isEqualTo(Optional.of(1));
+		assertThat(max).isEqualTo(Optional.of(11));
+	}
+
+	@Test
 	public void shouldFindBiggestAndSmallestValueInLazyButFiniteSeq() throws Exception {
 		//given
-		final LazySeq<Integer> single = cons(3,
+		final LazySeq<Integer> lazy = cons(3,
 				() -> cons(-2,
 						() -> cons(8,
 								() -> cons(5,
 										() -> cons(-4,
-												() -> cons(11, of(2)))))));
+												() -> cons(11, cons(2,
+														() -> of(1))))))));
 
 		//when
-		final Optional<Integer> min = single.min((a, b) -> a - b);
-		final Optional<Integer> max = single.max((a, b) -> a - b);
+		final Optional<Integer> min = lazy.min((a, b) -> a - b);
+		final Optional<Integer> max = lazy.max((a, b) -> a - b);
 
 		//then
 		assertThat(min).isEqualTo(Optional.of(-4));
+		assertThat(max).isEqualTo(Optional.of(11));
+	}
+
+	@Test
+	public void shouldFindBiggestAndSmallestValueInLazyButFiniteSeqByProperty() throws Exception {
+		//given
+		final LazySeq<Integer> lazy = cons(3,
+				() -> cons(-2,
+						() -> cons(8,
+								() -> cons(5,
+										() -> cons(-4,
+												() -> cons(11, cons(2,
+														() -> of(1))))))));
+
+		//when
+		final Optional<Integer> min = lazy.minBy(Math::abs);
+		final Optional<Integer> max = lazy.maxBy(Math::abs);
+
+		//then
+		assertThat(min).isEqualTo(Optional.of(1));
 		assertThat(max).isEqualTo(Optional.of(11));
 	}
 
@@ -89,6 +152,20 @@ public class LazySeqMinMaxTest extends AbstractBaseTestCase {
 	}
 
 	@Test
+	public void shouldFindShortestAndLongestStringsByLengthProperty() throws Exception {
+		//given
+		final LazySeq<String> single = of(loremIpsum());
+
+		//when
+		final Optional<String> min = single.minBy(String::length);
+		final Optional<String> max = single.maxBy(String::length);
+
+		//then
+		assertThat(min).isEqualTo(Optional.of("id"));
+		assertThat(max).isEqualTo(Optional.of("consectetur"));
+	}
+
+	@Test
 	public void shouldFindFirstAndLastStringAlphabetically() throws Exception {
 		//given
 		final LazySeq<String> single = of(loremIpsum());
@@ -99,6 +176,20 @@ public class LazySeqMinMaxTest extends AbstractBaseTestCase {
 
 		//then
 		assertThat(min).isEqualTo(Optional.of("adipiscing"));
+		assertThat(max).isEqualTo(Optional.of("sit"));
+	}
+
+	@Test
+	public void shouldFindFirstAndLastStringByLastCharacter() throws Exception {
+		//given
+		final LazySeq<String> single = of(loremIpsum());
+
+		//when
+		final Optional<String> min = single.minBy(s -> s.charAt(s.length() - 1));
+		final Optional<String> max = single.maxBy(s -> s.charAt(s.length() - 1));
+
+		//then
+		assertThat(min).isEqualTo(Optional.of("ligula"));
 		assertThat(max).isEqualTo(Optional.of("sit"));
 	}
 
