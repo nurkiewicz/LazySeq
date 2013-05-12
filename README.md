@@ -35,8 +35,6 @@ it means you are not compiling using Java 8. [Download JDK 8 with lambda support
 ## TODO
 * More complex test cases:
 ** CRON expressions `LazySeq`
-** [Collatz conjecture](http://en.wikipedia.org/wiki/Collatz_conjecture)
-** Fibonacci numbers using `zip` and `map`
 ** (In)finite `LazySeq` of database records, fetched page at a time (buffering/caching)
 ** `LazySeq` of distinct random elements from `Collection`
 
