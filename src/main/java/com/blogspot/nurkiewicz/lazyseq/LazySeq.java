@@ -157,7 +157,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 
 	@Override
 	public Stream<E> stream() {
-		return new LazySeqStream<E>(this);
+		return new LazySeqStream<>(this);
 	}
 
 	@Override
@@ -308,7 +308,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 
 	@Override
 	public Iterator<E> iterator() {
-		return new LazySeqIterator<E>(this);
+		return new LazySeqIterator<>(this);
 	}
 
 	public boolean anyMatch(Predicate<? super E> predicate) {
