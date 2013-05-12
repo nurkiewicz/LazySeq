@@ -5,8 +5,6 @@ import java.util.function.*;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 
-import static java.util.Collections.unmodifiableList;
-
 /**
  * @author Tomasz Nurkiewicz
  * @since 5/6/13, 9:20 PM
@@ -368,8 +366,15 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	}
 
 	public LazySeq<List<E>> grouped(int size) {
-		final List<E> window = unmodifiableList(new ArrayList<>(take(size)));
-		return cons(window, () -> drop(size).grouped(size));
+		if (size <= 0) {
+			throw new IllegalArgumentException(Integer.toString(size));
+		}
+		return groupedUnsafe(size);
+	}
+
+	protected LazySeq<List<E>> groupedUnsafe(int size) {
+		final List<E> window = take(size).toList();
+		return cons(window, () -> drop(size).groupedUnsafe(size));
 	}
 
 	public LazySeq<E> scan(E initial, BinaryOperator<E> fun) {

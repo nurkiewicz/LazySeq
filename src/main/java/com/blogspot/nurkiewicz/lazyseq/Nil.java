@@ -109,6 +109,11 @@ class Nil<E> extends LazySeq<E> {
 	}
 
 	@Override
+	protected LazySeq<List<E>> groupedUnsafe(int size) {
+		return empty();
+	}
+
+	@Override
 	public LazySeq<E> scan(E initial, BinaryOperator<E> fun) {
 		return of(initial);
 	}
