@@ -205,12 +205,12 @@ class LazySeqStream<E> implements Stream<E> {
 
 	@Override
 	public Stream<E> sorted() {
-		throw new UnsupportedOperationException("Not yet implemented: sorted");
+		return underlying.sorted().stream();
 	}
 
 	@Override
 	public Stream<E> sorted(Comparator<? super E> comparator) {
-		throw new UnsupportedOperationException("Not yet implemented: sorted");
+		return underlying.sorted(comparator).stream();
 	}
 
 	@Override

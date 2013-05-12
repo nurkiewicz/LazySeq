@@ -417,6 +417,16 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		exclude.add(next);
 		return cons(next, () -> moreDistinct.tail().filterOutSeen(exclude));
 	}
+
+	public LazySeq<E> sorted() {
+		return sorted((o1, o2) -> ((Comparable<E>) o1).compareTo(o2));
+	}
+
+	public LazySeq<E> sorted(Comparator<? super E> comparator) {
+		final ArrayList<E> list = new ArrayList<>(this);
+		list.sort(comparator);
+		return of(list);
+	}
 }
 
 
