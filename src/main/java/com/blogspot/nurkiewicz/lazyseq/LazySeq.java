@@ -185,6 +185,16 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		return take(maxSize);
 	}
 
+	/**
+	 * Converts this {@link LazySeq} to immutable {@link List}.
+	 *
+	 * Notice that this method will eventually fail at runtime when called on infinite sequence.
+	 * @return {@link List} of all elements in this lazy sequence.
+	 */
+	public List<E> toList() {
+		return Collections.unmodifiableList(this);
+	}
+
 	public LazySeq<E> take(long maxSize) {
 		if (maxSize < 0) {
 			throw new IllegalArgumentException(Long.toString(maxSize));
@@ -337,8 +347,24 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	}
 
 	public LazySeq<List<E>> sliding(int size) {
-		final List<E> window = unmodifiableList(new ArrayList<>(take(size)));
-		return cons(window, () -> tail().sliding(size));
+		if (size <= 0) {
+			throw new IllegalArgumentException(Integer.toString(size));
+		}
+		return slidingUnsafe(size);
+	}
+
+	protected LazySeq<List<E>> slidingUnsafe(int size) {
+		final List<E> window = take(size).toList();
+		return cons(window, () -> tail().slidingFullOnly(size));
+	}
+
+	protected LazySeq<List<E>> slidingFullOnly(int size) {
+		final List<E> window = take(size).toList();
+		if (window.size() < size) {
+			return empty();
+		} else {
+			return cons(window, tail().slidingFullOnly(size));
+		}
 	}
 
 	public LazySeq<List<E>> grouped(int size) {

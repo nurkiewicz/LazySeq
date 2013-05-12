@@ -104,7 +104,7 @@ class Nil<E> extends LazySeq<E> {
 	}
 
 	@Override
-	public LazySeq<List<E>> sliding(int size) {
+	public LazySeq<List<E>> slidingUnsafe(int size) {
 		return empty();
 	}
 
