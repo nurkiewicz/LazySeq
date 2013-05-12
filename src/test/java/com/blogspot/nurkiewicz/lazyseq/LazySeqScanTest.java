@@ -39,7 +39,7 @@ public class LazySeqScanTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldReturnScannedFixedSeqOfStrings() throws Exception {
 		//given
-		final LazySeq<String> constant = constant("*").take(5);
+		final LazySeq<String> constant = continually("*").take(5);
 
 		//when
 		final LazySeq<String> scanned = constant.scan("", (a, c) -> a + c);

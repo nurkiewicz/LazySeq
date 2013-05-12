@@ -7,6 +7,9 @@ import org.testng.annotations.Test;
 import java.util.function.Supplier;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.continually;
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -69,6 +72,56 @@ public class LazySeqContinuallyTest extends AbstractBaseTestCase {
 		//then
 		assertThat(cont.head()).isEqualTo(42);
 		assertThat(cont.tail().head()).isEqualTo(43);
+	}
+
+	@Test
+	public void shouldCreateCycleFromSingleItemIterable() throws Exception {
+		//given
+		final LazySeq<Character> posNeg = continually(asList('a'));
+
+		//when
+		final LazySeq<Character> subSeq = posNeg.take(5);
+
+		//then
+		assertThat(subSeq).isEqualTo(of('a', 'a', 'a', 'a', 'a'));
+	}
+
+	@Test
+	public void shouldCreateCycleFromIterable() throws Exception {
+		//given
+		final LazySeq<Integer> posNeg = continually(asList(1, -1));
+
+		//when
+		final LazySeq<Integer> subSeq = posNeg.take(5);
+
+		//then
+		assertThat(subSeq).isEqualTo(of(1, -1, 1, -1, 1));
+	}
+
+	@Test
+	public void shouldCreateCycleFromLongIterable() throws Exception {
+		//given
+		final LazySeq<Integer> posNeg = continually(asList(1, 2, 3, 2));
+
+		//when
+		final LazySeq<Integer> subSeq = posNeg.take(7);
+
+		//then
+		assertThat(subSeq).isEqualTo(of(1, 2, 3, 2, 1, 2, 3));
+	}
+
+	@Test
+	public void shouldCreateEmptySeqIfCyclingEmptySeq() throws Exception {
+		final LazySeq<Object> contEmpty = continually(emptyList());
+
+		assertThat(contEmpty).isEmpty();
+	}
+
+	@Test
+	public void shouldCreateCycleOfSingleElement() throws Exception {
+		final LazySeq<Character> constant = continually('$');
+
+		assertThat(constant.take(4)).isEqualTo(of('$', '$', '$', '$'));
 	}
 	
 }
