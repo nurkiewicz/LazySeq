@@ -6,6 +6,12 @@
 	<groupId>com.blogspot.nurkiewicz.lazyseq</groupId>
 	<artifactId>lazyseq</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
