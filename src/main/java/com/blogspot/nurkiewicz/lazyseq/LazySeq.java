@@ -332,7 +332,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		if (predicate.test(head())) {
 			return tail().dropWhile(predicate);
 		} else {
-			return empty();
+			return this;
 		}
 	}
 
