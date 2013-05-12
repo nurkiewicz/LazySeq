@@ -172,6 +172,11 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	}
 
 	@Override
+	public Stream<E> parallelStream() {
+		return stream();
+	}
+
+	@Override
 	public String toString() {
 		final StringBuilder s = new StringBuilder("[");
 		LazySeq<E> cur = this;
@@ -230,6 +235,11 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		} else {
 			return this;
 		}
+	}
+
+	@Override
+	public LazySeq<E> subList(int fromIndex, int toIndex) {
+		return slice(fromIndex, toIndex);
 	}
 
 	public LazySeq<E> slice(long startInclusive, long endExclusive) {
