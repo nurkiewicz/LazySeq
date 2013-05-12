@@ -215,12 +215,19 @@ class LazySeqStream<E> implements Stream<E> {
 
 	@Override
 	public Stream<E> peek(Consumer<? super E> consumer) {
-		throw new UnsupportedOperationException("Not yet implemented: peek");
+		return underlying.map(e -> {
+			consumer.accept(e);
+			return e;
+		}).stream();
 	}
 
 	@Override
 	public <R> R collect(Supplier<R> resultFactory, BiConsumer<R, ? super E> accumulator, BiConsumer<R, R> combiner) {
-		throw new UnsupportedOperationException("Not yet implemented: collect");
+		R result = resultFactory.get();
+		for (E element : underlying) {
+			accumulator.accept(result, element);
+		}
+		return result;
 	}
 
 	@Override
@@ -229,15 +236,9 @@ class LazySeqStream<E> implements Stream<E> {
 			//noinspection unchecked
 			return (R) underlying;
 		}
-		return doCollect(collector);
-	}
-
-	private <R> R doCollect(Collector<? super E, R> collector) {
 		R result = collector.resultSupplier().get();
-		LazySeq<E> cur = underlying;
-		while (!cur.isEmpty()) {
-			result = collector.accumulator().apply(result, cur.head());
-			cur = cur.tail();
+		for (E element : underlying) {
+			result = collector.accumulator().apply(result, element);
 		}
 		return result;
 	}
