@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import java.util.function.Supplier;
 
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.numbers;
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -50,7 +51,7 @@ public class LazySeqMapTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldMapInfiniteSeq() throws Exception {
 		//given
-		final LazySeq<Integer> naturals = LazySeq.numbers(1);
+		final LazySeq<Integer> naturals = numbers(1);
 
 		//when
 		final LazySeq<Integer> multiplied = naturals.map(x -> x * 10);

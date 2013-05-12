@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.numbers;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -20,7 +21,7 @@ public class LazySeqStreamTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldInvokeMultipleOperationsOnLazySeqAndProduceLazySeq() throws Exception {
 		//given
-		final LazySeq<Integer> oneToTwenty = LazySeq.numbers(1).take(20);
+		final LazySeq<Integer> oneToTwenty = numbers(1).take(20);
 
 		//when
 		final LazySeq<Integer> collected = stackedStream(oneToTwenty).collect(LazySeq.toLazySeq());
@@ -32,7 +33,7 @@ public class LazySeqStreamTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldInvokeMultipleOperationsOnLazySeq() throws Exception {
 		//given
-		final LazySeq<Integer> oneToTwenty = LazySeq.numbers(1).take(20);
+		final LazySeq<Integer> oneToTwenty = numbers(1).take(20);
 
 		//when
 		final List<Integer> collected = stackedStream(oneToTwenty).collect(toList());
@@ -44,7 +45,7 @@ public class LazySeqStreamTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldInvokeMultipleOperationsAndUseCustomCollector() throws Exception {
 		//given
-		final LazySeq<Integer> oneToTwenty = LazySeq.numbers(1).take(20);
+		final LazySeq<Integer> oneToTwenty = numbers(1).take(20);
 		final Stream<Integer> integerStream = stackedStream(oneToTwenty);
 
 		//when
@@ -61,7 +62,7 @@ public class LazySeqStreamTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldInvokeTerminalOperations() throws Exception {
 		//given
-		final LazySeq<Integer> oneToTwenty = LazySeq.numbers(1).take(20);
+		final LazySeq<Integer> oneToTwenty = numbers(1).take(20);
 
 		//when
 		final Optional<Integer> min = stackedStream(oneToTwenty).min((a, b) -> a - b);

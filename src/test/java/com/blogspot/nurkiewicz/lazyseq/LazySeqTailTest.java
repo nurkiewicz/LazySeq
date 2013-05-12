@@ -4,8 +4,7 @@ import org.testng.annotations.Test;
 
 import java.util.NoSuchElementException;
 
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.empty;
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.*;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
@@ -42,7 +41,7 @@ public class LazySeqTailTest extends AbstractBaseTestCase {
 
 	@Test
 	public void shouldReturnTailOfInfiniteLazySeq() throws Exception {
-		assertThat(LazySeq.numbers(1).tail().limit(4)).isEqualTo(of(2, 3, 4, 5));
+		assertThat(numbers(1).tail().limit(4)).isEqualTo(of(2, 3, 4, 5));
 	}
 
 }

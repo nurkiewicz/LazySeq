@@ -2,8 +2,7 @@ package com.blogspot.nurkiewicz.lazyseq;
 
 import org.testng.annotations.Test;
 
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.empty;
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.*;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
 
@@ -16,7 +15,7 @@ public class LazySeqGetTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldThrowWhenNegativeGet() throws Exception {
 		//given
-		final LazySeq<Integer> naturals = LazySeq.numbers(1);
+		final LazySeq<Integer> naturals = numbers(1);
 
 		try {
 			//when
@@ -86,7 +85,7 @@ public class LazySeqGetTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldGetElementFarInTheSeq() throws Exception {
 		//given
-		final LazySeq<Integer> naturals = LazySeq.numbers(0);
+		final LazySeq<Integer> naturals = numbers(0);
 
 		//when
 		final Integer natural = naturals.get(100_000);

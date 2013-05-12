@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.numbers;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
@@ -93,7 +94,7 @@ public class LazyPagingTest extends AbstractBaseTestCase {
 
 	public List<Record> loadPage(int offset, int max) {
 		pageConsumer.accept(offset + "," + max);
-		return LazySeq.numbers(offset).
+		return numbers(offset).
 				take(max).
 				map(Record::new).
 				toList();

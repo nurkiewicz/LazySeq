@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import java.util.function.Supplier;
 
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.numbers;
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -47,7 +48,7 @@ public class LazySeqFlatMapTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldLazilyFlattenInfiniteStream() throws Exception {
 		//given
-		final LazySeq<Integer> raw = LazySeq.numbers(1);
+		final LazySeq<Integer> raw = numbers(1);
 
 		//when
 		final LazySeq<Integer> flat = raw.flatMap(i -> asList(i, 0, -i));
@@ -75,7 +76,7 @@ public class LazySeqFlatMapTest extends AbstractBaseTestCase {
 	public void shouldKeepEvaluatingIfFirstFlatMapResultIsEmpty() throws Exception {
 		//given
 		int from = -10;
-		final LazySeq<Integer> raw = LazySeq.numbers(from);
+		final LazySeq<Integer> raw = numbers(from);
 
 		//when
 		final LazySeq<Integer> flat = raw.flatMap(LazySeqFlatMapTest::flatMapFun);

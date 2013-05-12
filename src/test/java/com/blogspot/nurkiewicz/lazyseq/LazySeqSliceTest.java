@@ -2,8 +2,7 @@ package com.blogspot.nurkiewicz.lazyseq;
 
 import org.testng.annotations.Test;
 
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.empty;
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.*;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
 
@@ -51,7 +50,7 @@ public class LazySeqSliceTest extends AbstractBaseTestCase {
 
 	@Test
 	public void shouldThrowWhenEndIndexIsSmallerThanStartIndexForInfiniteSeq() throws Exception {
-		final LazySeq<Integer> infinite = LazySeq.numbers(0);
+		final LazySeq<Integer> infinite = numbers(0);
 
 		try {
 			//when
@@ -93,7 +92,7 @@ public class LazySeqSliceTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldThrowWhenStartIndexNegativeForInfiniteSeq() throws Exception {
 		//given
-		final LazySeq<Integer> infinite = LazySeq.numbers(0);
+		final LazySeq<Integer> infinite = numbers(0);
 
 		try {
 			//when
@@ -119,7 +118,7 @@ public class LazySeqSliceTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldSliceInfiniteSeq() throws Exception {
 		//given
-		final LazySeq<Integer> naturals = LazySeq.numbers(0);
+		final LazySeq<Integer> naturals = numbers(0);
 
 		//when
 		final LazySeq<Integer> subs = naturals.slice(3, 7);

@@ -4,8 +4,7 @@ import org.testng.annotations.Test;
 
 import java.util.function.Function;
 
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.iterate;
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.*;
 import static com.blogspot.nurkiewicz.lazyseq.samples.Seqs.primes;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -17,7 +16,7 @@ public class LazySeqIterateTest extends AbstractBaseTestCase {
 
 	@Test
 	public void shouldReturnInfiniteSequenceOfNaturalNumbers() throws Exception {
-		final LazySeq<Integer> naturals = LazySeq.numbers(1);
+		final LazySeq<Integer> naturals = numbers(1);
 		assertThat(naturals.head()).isEqualTo(1);
 		assertThat(naturals.tail().head()).isEqualTo(2);
 		assertThat(naturals.drop(1000).head()).isEqualTo(1001);

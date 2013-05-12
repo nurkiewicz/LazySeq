@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import java.util.function.Supplier;
 
+import static com.blogspot.nurkiewicz.lazyseq.LazySeq.numbers;
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
@@ -72,7 +73,7 @@ public class LazySeqTakeTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldTrimInfiniteSeq() throws Exception {
 		//given
-		final LazySeq<Integer> shortSeq = LazySeq.numbers(1);
+		final LazySeq<Integer> shortSeq = numbers(1);
 
 		//when
 		final LazySeq<Integer> limited = shortSeq.limit(3);
