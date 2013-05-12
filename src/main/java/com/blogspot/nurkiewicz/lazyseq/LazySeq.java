@@ -260,12 +260,17 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		if (tail().isEmpty()) {
 			return Optional.of(head());
 		}
-		E minSoFar = minByComparator(head(), tail().head(), comparator);
+		E minSoFar = head();
 		LazySeq<E> cur = this.tail();
 		while (!cur.isEmpty()) {
-			minSoFar = minByComparator(minSoFar, cur.tail().head(), comparator);
+			minSoFar = maxByComparator(minSoFar, cur.head(), comparator);
+			cur = cur.tail();
 		}
 		return Optional.of(minSoFar);
+	}
+
+	private static <E> E maxByComparator(E first, E second, Comparator<? super E> comparator) {
+		return comparator.compare(first, second) >= 0? first : second;
 	}
 
 	@Override
@@ -276,10 +281,6 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	@Override
 	public Iterator<E> iterator() {
 		return new LazySeqIterator<E>(this);
-	}
-
-	private static <E> E minByComparator(E first, E second, Comparator<? super E> comparator) {
-		return comparator.compare(first, second) <= 0? first : second;
 	}
 
 	public boolean anyMatch(Predicate<? super E> predicate) {
