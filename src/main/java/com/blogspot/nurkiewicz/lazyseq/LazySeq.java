@@ -132,6 +132,10 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		return cons(generator.get(), () -> continually(generator));
 	}
 
+	public static <E> LazySeq<E> constant(E value) {
+		return cons(value, () -> constant(value));
+	}
+
 	protected abstract boolean isTailDefined();
 
 	@Override
