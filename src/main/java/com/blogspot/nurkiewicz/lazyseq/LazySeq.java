@@ -363,7 +363,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		if (window.size() < size) {
 			return empty();
 		} else {
-			return cons(window, tail().slidingFullOnly(size));
+			return cons(window, () -> tail().slidingFullOnly(size));
 		}
 	}
 

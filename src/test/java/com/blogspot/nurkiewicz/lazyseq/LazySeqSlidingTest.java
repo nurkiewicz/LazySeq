@@ -6,6 +6,7 @@ import java.util.List;
 
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.empty;
 import static com.blogspot.nurkiewicz.lazyseq.LazySeq.of;
+import static com.blogspot.nurkiewicz.lazyseq.SampleStreams.primes;
 import static java.util.Arrays.asList;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
@@ -146,6 +147,21 @@ public class LazySeqSlidingTest extends AbstractBaseTestCase {
 
 		//then
 		assertThat(sliding).isEmpty();
+	}
+
+	@Test
+	public void shouldCreateInfiniteSeqOfWindowsOverInfiniteSeq() throws Exception {
+		//given
+		final LazySeq<Integer> primes = primes();
+
+		//when
+		final LazySeq<List<Integer>> sliding = primes.sliding(3);
+
+		//then
+		assertThat(sliding.get(0)).isEqualTo(asList(2, 3, 5));
+		assertThat(sliding.get(1)).isEqualTo(asList(3, 5, 7));
+		assertThat(sliding.get(2)).isEqualTo(asList(5, 7, 11));
+		assertThat(sliding.get(3)).isEqualTo(asList(7, 11, 13));
 	}
 
 }
