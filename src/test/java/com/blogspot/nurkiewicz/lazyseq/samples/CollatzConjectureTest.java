@@ -49,11 +49,12 @@ public class CollatzConjectureTest extends AbstractBaseTestCase {
 	}
 
 	private LazySeq<Long> collatz(long from) {
-		if (from == 1) {
+		if (from > 1) {
+			final long next = from % 2 == 0 ? from / 2 : from * 3 + 1;
+			return cons(from, () -> collatz(next));
+		} else {
 			return of(1L);
 		}
-		final long next = from % 2 == 0 ? from / 2 : from * 3 + 1;
-		return cons(from, () -> collatz(next));
 	}
 
 	private final Map<Long, LazySeq<Long>> collatzCache= new ConcurrentHashMap<>(ImmutableMap.of(1L, of(1L)));
