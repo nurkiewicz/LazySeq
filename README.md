@@ -22,6 +22,10 @@
 ** [Collatz conjecture](http://en.wikipedia.org/wiki/Collatz_conjecture)
 ** Fibonacci numbers using `zip` and `map`
 ** (In)finite `LazySeq` of database records, fetched page at a time (buffering/caching)
+** `LazySeq` of distinct random elements from `Collection`
 
 ## Possible improvements
 * Just like `FixedCons` is used when tail is known up-front, consider `IterableCons` that wraps existing `Iterable` in one node rather than building `FixedCons` hierarchy. This can be used for all `concat` methods.
+
+## License
+This project is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
