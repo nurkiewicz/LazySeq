@@ -322,7 +322,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 
 	public LazySeq<E> takeWhile(Predicate<? super E> predicate) {
 		if (predicate.test(head())) {
-			return cons(head(), tail().takeWhile(predicate));
+			return cons(head(), () -> tail().takeWhile(predicate));
 		} else {
 			return empty();
 		}
