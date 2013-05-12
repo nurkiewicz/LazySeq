@@ -36,7 +36,6 @@ it means you are not compiling using Java 8. [Download JDK 8 with lambda support
 * More complex test cases:
 ** CRON expressions `LazySeq`
 ** (In)finite `LazySeq` of database records, fetched page at a time (buffering/caching)
-** `LazySeq` of distinct random elements from `Collection`
 
 ## Possible improvements
 * Just like `FixedCons` is used when tail is known up-front, consider `IterableCons` that wraps existing `Iterable` in one node rather than building `FixedCons` hierarchy. This can be used for all `concat` methods.
