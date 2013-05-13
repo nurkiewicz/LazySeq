@@ -56,10 +56,10 @@ class FixedCons<E> extends LazySeq<E> {
 
 	@Override
 	protected LazySeq<E> takeUnsafe(long maxSize) {
-		if (maxSize > 0) {
+		if (maxSize > 1) {
 			return cons(head, tail.takeUnsafe(maxSize - 1));
 		} else {
-			return LazySeq.empty();
+			return LazySeq.of(head);
 		}
 	}
 

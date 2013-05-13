@@ -133,6 +133,11 @@ class Nil<E> extends LazySeq<E> {
 	}
 
 	@Override
+	public LazySeq<E> force() {
+		return this;
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		return o instanceof Nil;
 	}

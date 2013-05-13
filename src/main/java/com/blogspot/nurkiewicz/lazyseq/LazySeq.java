@@ -233,6 +233,9 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		if (maxSize < 0) {
 			throw new IllegalArgumentException(Long.toString(maxSize));
 		}
+		if (maxSize == 0) {
+			return empty();
+		}
 		return takeUnsafe(maxSize);
 	}
 
@@ -453,6 +456,11 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	public boolean startsWith(Iterator<E> iterator) {
 		return !iterator.hasNext() ||
 				head().equals(iterator.next()) && tail().startsWith(iterator);
+	}
+
+	public LazySeq<E> force() {
+		tail().force();
+		return this;
 	}
 
 	@Override
