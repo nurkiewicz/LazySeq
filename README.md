@@ -285,7 +285,7 @@ However streams in Java 8 were created to work around feature that is a foundati
 
 Moreover `LazySeq` provides special purpose collector (see: `LazySeq.toLazySeq()`) that avoids evaluation even when used with `collect()` - which normally forces full collection computation.
 
-## Data structure details
+## Implementation details
 
 Each lazy sequence is built around the idea of eagerly computed *head* and lazily evaluated *tail* represented as function. This is very similar to classic single-linked list recursive definition:
 
