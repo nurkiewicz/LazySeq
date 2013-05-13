@@ -21,11 +21,10 @@ public class FibonacciTest extends AbstractBaseTestCase {
 	}
 
 	private static LazySeq<Integer> lastTwoFib(int first, int second) {
-		return 	LazySeq.<Integer>of(
+		return LazySeq.cons(
 				first,
 				() -> lastTwoFib(second, first + second)
 		);
-
 	}
 
 	@Test
