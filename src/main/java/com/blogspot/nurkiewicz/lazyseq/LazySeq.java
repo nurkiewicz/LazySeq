@@ -224,9 +224,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	 * @return {@link List} of all elements in this lazy sequence.
 	 */
 	public List<E> toList() {
-		final ArrayList<E> result = new ArrayList<>(size());
-		forEach(result::add);
-		return Collections.unmodifiableList(result);
+		return Collections.unmodifiableList(this.force());
 	}
 
 	public LazySeq<E> take(long maxSize) {
