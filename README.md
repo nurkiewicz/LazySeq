@@ -30,9 +30,11 @@ Building and working with lazy sequences in 10 minutes.
 
 In order to create a lazy sequence you use `LazySeq.cons()` factory method that accepts first element (*head*) and a function that might be later used to compute rest (*tail*). For example in order to produce lazy sequence of natural numbers with given start element you simply say:
 
-	private LazySeq<Integer> naturals(int from) {
-		return LazySeq.cons(from, () -> naturals(from + 1));
-	}
+```java
+private LazySeq<Integer> naturals(int from) {
+	return LazySeq.cons(from, () -> naturals(from + 1));
+}
+```
 
 There is really no recursion here. If there was, calling `naturals()` would quickly result in `StackOverflowError` as it calls itself without stop condition. However `() -> naturals(from + 1)` expression defines a *function* returning `LazySeq<Integer>` (`Supplier` to be precise) that this data structure will invoke, but only if needed. Look at the code below, how many times do you think `naturals()` function was called (except the first line)?
 
