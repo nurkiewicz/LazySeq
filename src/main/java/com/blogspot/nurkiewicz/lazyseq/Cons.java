@@ -1,6 +1,7 @@
 package com.blogspot.nurkiewicz.lazyseq;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -15,8 +16,8 @@ class Cons<E> extends LazySeq<E> {
 	private final Supplier<LazySeq<E>> tailFun;
 
 	Cons(E head, Supplier<LazySeq<E>> tailFun) {
-		this.head = head;
-		this.tailFun = tailFun;
+		this.head = Objects.requireNonNull(head);
+		this.tailFun = Objects.requireNonNull(tailFun);
 	}
 
 	@Override

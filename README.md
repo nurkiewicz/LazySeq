@@ -4,7 +4,7 @@
 
 *Lazy sequence* is a data structure that is being computed only when its elements are actually needed. All operations on lazy sequences, like `map()` and `filter()` are lazy as well, postponing invocation up to the moment when it is really necessary. Lazy sequence is always traversed from the beginning using very cheap *first*/*rest* decomposition (`head()` and `tail()`). An important property of lazy sequences is that they can represent infinite streams of data, e.g. all natural numbers or temperature measurements over time.
 
-Lazy sequence remembers already computed values so if you access Nth element, all elements from `1` to `N-1` are computed as well and cached. Despite that `LazySeq` (being at the core of many functional languages and algorithms) is immutable and thread-safe (assuming elements are, e.g. `String`, primitive wrappers, `BigDecimal`, etc.)
+Lazy sequence remembers already computed values so if you access Nth element, all elements from `1` to `N-1` are computed as well and cached. Despite that `LazySeq` (being at the core of many functional languages and algorithms) is immutable and thread-safe (assuming elements are, e.g. `String`, primitive wrappers, `BigDecimal`, etc.) `LazySeq` does not allow `null` elements.
 
 ## Rationale
 
@@ -514,12 +514,6 @@ This project was started as an exercise and is not battle-proven. But a healthy 
 ### Contributions and bug reports
 
 In the event of finding a bug or missing feature, don't hesitate to open a [new ticket](https://github.com/nurkiewicz/LazySeq/issues) or start [pull request](https://github.com/nurkiewicz/LazySeq/pulls). I would also love to see more interesting usages of `LazySeq` in wild.
-
-## Possible improvements
-
-* Just like `FixedCons` is used when tail is known up-front, consider `IterableCons` that wraps existing `Iterable` in one node rather than building `FixedCons` hierarchy. This can be used for all `concat` methods.
-
-* Parallel processing support (implementing spliterator?)
 
 ## License
 This project is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).

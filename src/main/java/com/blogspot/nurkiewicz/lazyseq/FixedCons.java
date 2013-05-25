@@ -1,6 +1,7 @@
 package com.blogspot.nurkiewicz.lazyseq;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -14,8 +15,8 @@ class FixedCons<E> extends LazySeq<E> {
 	private final LazySeq<E> tail;
 
 	public FixedCons(E head, LazySeq<E> tail) {
-		this.head = head;
-		this.tail = tail;
+		this.head = Objects.requireNonNull(head);
+		this.tail = Objects.requireNonNull(tail);
 	}
 
 	@Override
