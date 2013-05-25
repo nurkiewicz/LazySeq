@@ -4,7 +4,7 @@
 
 *Lazy sequence* is a data structure that is being computed only when its elements are actually needed. All operations on lazy sequences, like `map()` and `filter()` are lazy as well, postponing invocation up to the moment when it is really necessary. Lazy sequence is always traversed from the beginning using very cheap *first*/*rest* decomposition (`head()` and `tail()`). An important property of lazy sequences is that they can represent infinite streams of data, e.g. all natural numbers or temperature measurements over time.
 
-Lazy sequence remembers already computed values so if you access Nth element, all elements from `1` to `N-1` are computed as well and cached. Despite that `LazySeq` (being at the core of many functional languages and algorithms) is immutable and thread-safe.
+Lazy sequence remembers already computed values so if you access Nth element, all elements from `1` to `N-1` are computed as well and cached. Despite that `LazySeq` (being at the core of many functional languages and algorithms) is immutable and thread-safe (assuming elements are, e.g. `String`, primitive wrappers, `BigDecimal`, etc.)
 
 ## Rationale
 
