@@ -28,24 +28,24 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		return cons(element, empty());
 	}
 
-	public static <E> LazySeq<E> of(E element1, E element2, E element3) {
-		return cons(element1, of(element2, element3));
-	}
-
-	public static <E> LazySeq<E> of(E element1, E element2, E element3, Supplier<LazySeq<E>> tailFun) {
-		return cons(element1, of(element2, element3, tailFun));
-	}
-
-	public static <E> LazySeq<E> of(E element1, E element2, Supplier<LazySeq<E>> tailFun) {
-		return cons(element1, of(element2, tailFun));
-	}
-
 	public static <E> LazySeq<E> of(E element, Supplier<LazySeq<E>> tailFun) {
 		return cons(element, tailFun);
 	}
 
 	public static <E> LazySeq<E> of(E element1, E element2) {
 		return cons(element1, of(element2));
+	}
+
+	public static <E> LazySeq<E> of(E element1, E element2, Supplier<LazySeq<E>> tailFun) {
+		return cons(element1, of(element2, tailFun));
+	}
+
+	public static <E> LazySeq<E> of(E element1, E element2, E element3) {
+		return cons(element1, of(element2, element3));
+	}
+
+	public static <E> LazySeq<E> of(E element1, E element2, E element3, Supplier<LazySeq<E>> tailFun) {
+		return cons(element1, of(element2, element3, tailFun));
 	}
 
 	public static <E> LazySeq<E> of(E... elements) {
