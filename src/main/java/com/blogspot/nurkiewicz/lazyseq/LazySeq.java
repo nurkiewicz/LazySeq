@@ -100,7 +100,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 
 	public static <E> LazySeq<E> of(Iterator<E> iterator) {
 		if (iterator.hasNext()) {
-			return cons(iterator.next(), of(iterator));
+			return cons(iterator.next(), () -> of(iterator));
 		} else {
 			return empty();
 		}
