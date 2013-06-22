@@ -271,16 +271,6 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		tail().forEach(action);
 	}
 
-	public E reduce(E identity, BinaryOperator<E> accumulator) {
-		E result = identity;
-		LazySeq<E> cur = this;
-		while (!cur.isEmpty()) {
-			result = accumulator.apply(result, cur.head());
-			cur = cur.tail();
-		}
-		return result;
-	}
-
 	public Optional<E> reduce(BinaryOperator<E> accumulator) {
 		if (isEmpty() || tail().isEmpty()) {
 			return Optional.empty();
