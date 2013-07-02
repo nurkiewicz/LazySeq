@@ -118,7 +118,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		return new Cons<>(initial, () -> iterate(fun.apply(initial), fun));
 	}
 
-	public static <E> Collector<E, LazySeq<E>> toLazySeq() {
+	public static <E> Collector<E, LazySeq<E>, LazySeq<E>> toLazySeq() {
 		return DummyLazySeqCollector.getInstance();
 	}
 
@@ -301,7 +301,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	}
 
 	public Optional<E> min(Comparator<? super E> comparator) {
-		return greatestByComparator(comparator.reverseOrder());
+		return greatestByComparator(comparator.reversed());
 	}
 
 	private <C extends Comparable<? super C>> Comparator<? super E> propertyFunToComparator(Function<E, C> propertyFun) {

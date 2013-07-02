@@ -230,17 +230,17 @@ class LazySeqStream<E> implements Stream<E> {
 		return result;
 	}
 
-	@Override
-	public <R> R collect(Collector<? super E, R> collector) {
+    @Override
+	public <R, A> R collect(Collector<? super E, A, R> collector) {
 		if (collector instanceof DummyLazySeqCollector) {
-			//noinspection unchecked
-			return (R) underlying;
+            //noinspection unchecked
+            return (R) underlying;
 		}
-		R result = collector.resultSupplier().get();
+		A result = collector.supplier().get();
 		for (E element : underlying) {
-			result = collector.accumulator().apply(result, element);
+			collector.accumulator().accept(result, element);
 		}
-		return result;
+		return collector.transformer().apply(result);
 	}
 
 }
