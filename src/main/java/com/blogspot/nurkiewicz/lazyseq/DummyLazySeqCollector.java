@@ -36,7 +36,7 @@ final class DummyLazySeqCollector<E> implements Collector<E, LazySeq<E>, LazySeq
 	}
 
 	@Override
-	public Function<LazySeq<E>, LazySeq<E>> transformer() {
+	public Function<LazySeq<E>, LazySeq<E>> finisher() {
 		throw new IllegalStateException("Should never be called");
 	}
 

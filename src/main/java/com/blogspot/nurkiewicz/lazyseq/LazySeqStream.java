@@ -240,7 +240,16 @@ class LazySeqStream<E> implements Stream<E> {
 		for (E element : underlying) {
 			collector.accumulator().accept(result, element);
 		}
-		return collector.transformer().apply(result);
+		return collector.finisher().apply(result);
 	}
 
+    @Override
+    public Stream<E> onClose(Runnable closeHandler) {
+        throw new UnsupportedOperationException("Not yet implemented: onClose");
+    }
+
+    @Override
+    public void close() {
+        throw new UnsupportedOperationException("Not yet implemented: close");
+    }
 }
