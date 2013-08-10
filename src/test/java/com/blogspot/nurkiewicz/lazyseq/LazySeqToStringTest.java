@@ -33,7 +33,7 @@ public class LazySeqToStringTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldIncludeAllFixedElementsProvidedDuringCreationInToString() throws Exception {
 		//given
-		final LazySeq<Integer> notFull = of(1, 2, (Supplier<LazySeq<Integer>>)() -> of(3));
+		final LazySeq<Integer> notFull = of(1, 2, (Supplier<LazySeq<Integer>>) () -> of(3));
 
 		//when
 		final String s = notFull.toString();

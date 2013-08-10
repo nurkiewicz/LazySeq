@@ -24,7 +24,7 @@ public class LazyPagingTest extends AbstractBaseTestCase {
 	@Mock
 	private Consumer<String> pageConsumer;
 
-	public static final int PAGE_SIZE = 5;
+	private static final int PAGE_SIZE = 5;
 
 	@Test
 	public void shouldLoadOnlyFirstPageWhenInitiated() throws Exception {

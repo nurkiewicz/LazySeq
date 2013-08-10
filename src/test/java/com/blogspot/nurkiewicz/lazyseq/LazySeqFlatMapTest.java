@@ -60,7 +60,7 @@ public class LazySeqFlatMapTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldFlattenHeadOnlyAndNotEvaluateTail() throws Exception {
 		//given
-		final LazySeq<Integer> raw = LazySeq.<Integer>of(1, supplierMock);
+		final LazySeq<Integer> raw = LazySeq.of(1, supplierMock);
 
 		//when
 		final LazySeq<Integer> flat = raw.flatMap(i -> asList(i, 0, -i));

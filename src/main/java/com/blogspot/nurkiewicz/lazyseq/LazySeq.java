@@ -48,6 +48,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		return cons(element1, of(element2, element3, tailFun));
 	}
 
+	@SafeVarargs
 	public static <E> LazySeq<E> of(E... elements) {
 		return of(Arrays.asList(elements).iterator());
 	}
@@ -427,6 +428,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		return cons(next, () -> moreDistinct.tail().filterOutSeen(exclude));
 	}
 
+	@SuppressWarnings("unchecked")
 	public LazySeq<E> sorted() {
 		return sorted((o1, o2) -> ((Comparable<E>) o1).compareTo(o2));
 	}

@@ -52,7 +52,7 @@ public class LazySeqFilterTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldNotEvaluateTailIfHeadMatchesPredicate() throws Exception {
 		//given
-		final LazySeq<String> generated = LazySeq.<String>of("A", "BB", supplierMock);
+		final LazySeq<String> generated = LazySeq.of("A", "BB", supplierMock);
 
 		//when
 		generated.filter(s -> !s.isEmpty());
@@ -64,7 +64,7 @@ public class LazySeqFilterTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldEvaluateTailOnceWhenFirstElementNotMatching() throws Exception {
 		//given
-		final LazySeq<String> generated = LazySeq.<String>cons("", supplierMock);
+		final LazySeq<String> generated = LazySeq.cons("", supplierMock);
 		given(supplierMock.get()).willReturn(of("C"));
 
 		//when
