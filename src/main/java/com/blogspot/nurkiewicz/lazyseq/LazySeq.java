@@ -57,6 +57,14 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		return of(elements.iterator());
 	}
 
+	public static <E> LazySeq<E> of(Iterator<E> iterator) {
+		if (iterator.hasNext()) {
+			return cons(iterator.next(), () -> of(iterator));
+		} else {
+			return empty();
+		}
+	}
+
 	public static <E> LazySeq<E> concat(Iterable<E> elements, Supplier<LazySeq<E>> tailFun) {
 		return concat(elements.iterator(), tailFun);
 	}
@@ -73,6 +81,14 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		}
 	}
 
+	public static <E> LazySeq<E> concat(Iterator<E> iterator, Supplier<LazySeq<E>> tailFun) {
+		if (iterator.hasNext()) {
+			return concatNonEmptyIterator(iterator, tailFun);
+		} else {
+			return tailFun.get();
+		}
+	}
+
 	private static <E> LazySeq<E> concatNonEmptyIterator(Iterator<E> iterator, LazySeq<E> tail) {
 		final E next = iterator.next();
 		if (iterator.hasNext()) {
@@ -82,28 +98,12 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 		}
 	}
 
-	public static <E> LazySeq<E> concat(Iterator<E> iterator, Supplier<LazySeq<E>> tailFun) {
-		if (iterator.hasNext()) {
-			return concatNonEmptyIterator(iterator, tailFun);
-		} else {
-			return tailFun.get();
-		}
-	}
-
 	private static <E> LazySeq<E> concatNonEmptyIterator(Iterator<E> iterator, Supplier<LazySeq<E>> tailFun) {
 		final E next = iterator.next();
 		if (iterator.hasNext()) {
 			return cons(next, concatNonEmptyIterator(iterator, tailFun));
 		} else {
 			return cons(next, tailFun);
-		}
-	}
-
-	public static <E> LazySeq<E> of(Iterator<E> iterator) {
-		if (iterator.hasNext()) {
-			return cons(iterator.next(), () -> of(iterator));
-		} else {
-			return empty();
 		}
 	}
 
