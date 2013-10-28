@@ -225,11 +225,11 @@ class LazySeqStream<E> implements Stream<E> {
 		return result;
 	}
 
-    @SuppressWarnings("unchecked")
-    @Override
+	@SuppressWarnings("unchecked")
+	@Override
 	public <R, A> R collect(Collector<? super E, A, R> collector) {
 		if (collector instanceof DummyLazySeqCollector) {
-            return (R) underlying;
+			return (R) underlying;
 		}
 		A result = collector.supplier().get();
 		for (E element : underlying) {
@@ -238,13 +238,13 @@ class LazySeqStream<E> implements Stream<E> {
 		return collector.finisher().apply(result);
 	}
 
-    @Override
-    public Stream<E> onClose(Runnable closeHandler) {
-        throw new UnsupportedOperationException("Not yet implemented: onClose");
-    }
+	@Override
+	public Stream<E> onClose(Runnable closeHandler) {
+		throw new UnsupportedOperationException("Not yet implemented: onClose");
+	}
 
-    @Override
-    public void close() {
-        throw new UnsupportedOperationException("Not yet implemented: close");
-    }
+	@Override
+	public void close() {
+		throw new UnsupportedOperationException("Not yet implemented: close");
+	}
 }

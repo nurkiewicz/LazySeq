@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeMethod;
  */
 public class AbstractBaseTestCase {
 
-	@BeforeMethod(alwaysRun=true)
+	@BeforeMethod(alwaysRun = true)
 	public void injectMocks() {
 		MockitoAnnotations.initMocks(this);
 	}

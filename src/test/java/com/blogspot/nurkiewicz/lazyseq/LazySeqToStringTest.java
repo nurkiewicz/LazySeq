@@ -58,7 +58,7 @@ public class LazySeqToStringTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldNotIncludeAllElementsEvenIfOnlyNilLeft() throws Exception {
 		//given
-		final LazySeq<Integer> notFull = LazySeq.of(1, 2, (Supplier<LazySeq<Integer>>)LazySeq::<Integer>empty);
+		final LazySeq<Integer> notFull = LazySeq.of(1, 2, (Supplier<LazySeq<Integer>>) LazySeq::<Integer>empty);
 
 		//when
 		final String s = notFull.toString();
@@ -70,8 +70,9 @@ public class LazySeqToStringTest extends AbstractBaseTestCase {
 	@Test
 	public void shouldIncludeAllEvaluatedElementsWhenFirstEachIterated() throws Exception {
 		//given
-		final LazySeq<Integer> notFull = LazySeq.of(1, 2, (Supplier<LazySeq<Integer>>)LazySeq::<Integer>empty);
-		notFull.forEach(x -> {});
+		final LazySeq<Integer> notFull = LazySeq.of(1, 2, (Supplier<LazySeq<Integer>>) LazySeq::<Integer>empty);
+		notFull.forEach(x -> {
+		});
 
 		//when
 		final String s = notFull.toString();

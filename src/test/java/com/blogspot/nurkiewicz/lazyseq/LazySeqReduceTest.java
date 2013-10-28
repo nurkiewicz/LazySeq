@@ -90,7 +90,7 @@ public class LazySeqReduceTest extends AbstractBaseTestCase {
 	private BinaryOperator<Integer> sum() {
 		return (a, b) -> a + b;
 	}
-	
+
 	private BinaryOperator<Integer> product() {
 		return (a, b) -> a * b;
 	}

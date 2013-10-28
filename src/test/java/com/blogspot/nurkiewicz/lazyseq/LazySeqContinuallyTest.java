@@ -123,5 +123,5 @@ public class LazySeqContinuallyTest extends AbstractBaseTestCase {
 
 		assertThat(constant.take(4)).isEqualTo(of('$', '$', '$', '$'));
 	}
-	
+
 }

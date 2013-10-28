@@ -57,7 +57,7 @@ public class CollatzConjectureTest extends AbstractBaseTestCase {
 		}
 	}
 
-	private final Map<Long, LazySeq<Long>> collatzCache= new ConcurrentHashMap<>(ImmutableMap.of(1L, of(1L)));
+	private final Map<Long, LazySeq<Long>> collatzCache = new ConcurrentHashMap<>(ImmutableMap.of(1L, of(1L)));
 
 	private LazySeq<Long> cachedCollatz(long from) {
 		if (collatzCache.containsKey(from)) {
