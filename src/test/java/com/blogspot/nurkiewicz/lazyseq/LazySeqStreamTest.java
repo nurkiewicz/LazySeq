@@ -76,7 +76,7 @@ public class LazySeqStreamTest extends AbstractBaseTestCase {
 				map(n -> n + 1).
 				flatMap(n -> asList(0, n - 1).stream()).
 				filter(n -> n != 0).
-				substream(4, 18).
+				skip(4).
 				limit(10).
 				sorted().
 				distinct();
