@@ -70,7 +70,7 @@ class LazySeqStream<E> implements Stream<E> {
 		return array;
 	}
 
-	private <A> void copyToArray(Object[] array) {
+	private void copyToArray(Object[] array) {
 		LazySeq<E> cur = underlying;
 		for (int i = 0; i < array.length; ++i) {
 			array[i] = cur.head();
