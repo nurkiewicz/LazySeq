@@ -50,9 +50,9 @@ public class LazySeqStreamTest extends AbstractBaseTestCase {
 
 		//when
 		final List<String> collected = integerStream.collect(
-				ArrayList::<String>new,
+				() -> new ArrayList<String>(),
 				(list, item) -> list.add(Integer.toString(item)),
-				ArrayList::addAll
+				List::addAll
 		);
 
 		//then
