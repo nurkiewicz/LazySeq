@@ -304,7 +304,7 @@ lazySeq.
 	map(n -> n + 1).
 	flatMap(n -> asList(0, n - 1).stream()).
 	filter(n -> n != 0).
-	substream(4, 18).
+	skip(4).
 	limit(10).
 	sorted().
 	distinct().
@@ -510,6 +510,8 @@ When working with possibly infinite data structures, care must be taken. Avoid c
 ### Quality
 
 This project was started as an exercise and is not battle-proven. But a healthy [300+ unit-test suite](https://github.com/nurkiewicz/LazySeq/tree/master/src/test/java/com/blogspot/nurkiewicz/lazyseq) (3:1 test code/production code ratio) guards quality and functional correctness. I also make sure `LazySeq` is as lazy as possible by mocking tail functions and verifying they are called as rarely as one can get.
+
+Project was tested on [Java 8 build 113](https://jdk8.java.net/download.html) with lambda support.
 
 ### Contributions and bug reports
 
