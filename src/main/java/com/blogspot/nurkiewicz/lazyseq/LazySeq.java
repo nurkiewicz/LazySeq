@@ -193,17 +193,34 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 
 	@Override
 	public String toString() {
-		final StringBuilder s = new StringBuilder("[");
+		return mkString("[", ", ", "]");
+	}
+
+	/**
+	 * Returns a string representation of this {@link LazySeq} by concatenating the elements
+	 * using the separator <code>sep</code>.
+	 */
+	public String mkString(String sep) {
+		return mkString("", sep, "");
+	}
+
+	/**
+	 * Returns a string representation of this {@link LazySeq}.
+	 * The string result starts with the string <code>start</code> and ends with <code>end</code>,
+	 * whereas <code>sep</code> is as separator string between the elements of this sequence.
+	 */
+	public String mkString(String start, String sep, String end) {
+		final StringBuilder s = new StringBuilder(start);
 		LazySeq<E> cur = this;
 		while (!cur.isEmpty()) {
 			s.append(cur.head());
 			if (cur.isTailDefined()) {
 				if (!cur.tail().isEmpty()) {
-					s.append(", ");
+					s.append(sep);
 				}
 				cur = cur.tail();
 			} else {
-				s.append(", ?");
+				s.append(sep).append("?");
 				break;
 			}
 		}
