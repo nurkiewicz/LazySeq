@@ -193,7 +193,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 
 	@Override
 	public String toString() {
-		return mkString("[", ", ", "]");
+		return mkString("[", ", ", "]", true);
 	}
 
 	/**
@@ -210,11 +210,21 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 	 * whereas <code>sep</code> is as separator string between the elements of this sequence.
 	 */
 	public String mkString(String start, String sep, String end) {
+		return mkString(start, sep, end, false);
+	}
+
+	/**
+	 * Returns a string representation of this {@link LazySeq}.
+	 * The string result starts with the string <code>start</code> and ends with <code>end</code>,
+	 * whereas <code>sep</code> is as separator string between the elements of this sequence.
+	 * If <code>lazy</code> is <code>true</code> the evaluation stops at the first unspecific element.
+	 */
+	public String mkString(String start, String sep, String end, boolean lazy) {
 		final StringBuilder s = new StringBuilder(start);
 		LazySeq<E> cur = this;
 		while (!cur.isEmpty()) {
 			s.append(cur.head());
-			if (cur.isTailDefined()) {
+			if (!lazy || cur.isTailDefined()) {
 				if (!cur.tail().isEmpty()) {
 					s.append(sep);
 				}
@@ -224,7 +234,7 @@ public abstract class LazySeq<E> extends AbstractList<E> {
 				break;
 			}
 		}
-		return s.append("]").toString();
+		return s.append(end).toString();
 	}
 
 	public abstract LazySeq<E> filter(Predicate<? super E> predicate);
