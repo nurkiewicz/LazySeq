@@ -1,4 +1,4 @@
-# Lazy sequences implementation for Java 8
+# Lazy sequences implementation for Java 8 [![Build Status](https://travis-ci.org/nurkiewicz/LazySeq.svg?branch=master)](https://travis-ci.org/nurkiewicz/LazySeq)
 
 ## Introduction
 
@@ -506,6 +506,8 @@ When working with `LazySeq` you sometimes get `StackOverflowError` or `OutOfMemo
 When working with possibly infinite data structures, care must be taken. Avoid calling operations that *must* (`size()`, `allMatch()`, `minBy()`, `forEach()`, `reduce()`, ...) or *can* (`filter()`, `distinct()`, ...) traverse the whole sequence in order to give correct results. See *Pitfalls* for more examples and ways to avoid.
 
 ## Maturity
+
+[![Build Status](https://travis-ci.org/nurkiewicz/LazySeq.svg?branch=master)](https://travis-ci.org/nurkiewicz/LazySeq)
 
 ### Quality
 
