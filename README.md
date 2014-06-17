@@ -26,6 +26,16 @@ Of course implementing lazy sequence data structure was possible prior to Java 8
 
 Building and working with lazy sequences in 10 minutes.
 
+### Maven coordinates (available in Central):
+
+```xml
+<dependency>
+	<groupId>com.nurkiewicz.lazyseq</groupId>
+	<artifactId>lazyseq</artifactId>
+	<version>0.0.1</version>
+</dependency>
+```
+
 ### Infinite sequence of all natural numbers
 
 In order to create a lazy sequence you use `LazySeq.cons()` factory method that accepts first element (*head*) and a function that might be later used to compute rest (*tail*). For example in order to produce lazy sequence of natural numbers with given start element you simply say:
