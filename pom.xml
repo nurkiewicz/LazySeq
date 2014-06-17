@@ -10,7 +10,7 @@
 	<description>Lazy sequences similar to Stream in Scala or lazy-seq in Clojure for Java 8</description>
 	<groupId>com.nurkiewicz.lazyseq</groupId>
 	<artifactId>lazyseq</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<licenses>
 		<license>
@@ -30,7 +30,7 @@
 		<connection>scm:git:git@github.com:nurkiewicz/LazySeq.git</connection>
 		<url>scm:git:git@github.com:nurkiewicz/LazySeq.git</url>
 		<developerConnection>scm:git:git@github.com:nurkiewicz/LazySeq.git</developerConnection>
-		<tag>0.0.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<properties>
