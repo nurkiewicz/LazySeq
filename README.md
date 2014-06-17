@@ -178,7 +178,7 @@ collatz.size();
 
 However `size()`, in order to calculate total number of elements, must traverse the whole sequence. Of course this can only work with finite lazy sequences, calling `size()` on an infinite sequence will end up poorly.
 
-If you play a bit with this sequence you will quickly realize that sequences for different numbers [share the same suffix](http://en.wikipedia.org/wiki/File:Collatz-graph-all-30-no27.svg) (always end with the same sequence of numbers). This begs for some caching/structural sharing. See [`CollatzConjectureTest`](https://github.com/nurkiewicz/LazySeq/blob/master/src/test/java/com/blogspot/nurkiewicz/lazyseq/samples/CollatzConjectureTest.java) for details.
+If you play a bit with this sequence you will quickly realize that sequences for different numbers [share the same suffix](http://en.wikipedia.org/wiki/File:Collatz-graph-all-30-no27.svg) (always end with the same sequence of numbers). This begs for some caching/structural sharing. See [`CollatzConjectureTest`](https://github.com/nurkiewicz/LazySeq/blob/master/src/test/java/com/nurkiewicz/lazyseq/samples/CollatzConjectureTest.java) for details.
 
 ## But can it be used to something, you know... useful? Real life?
 
@@ -355,7 +355,7 @@ class Cons<E> extends LazySeq<E> {
 	}
 ```
 
-For full implementation see [`Cons.java`](https://github.com/nurkiewicz/LazySeq/blob/master/src/main/java/com/blogspot/nurkiewicz/lazyseq/Cons.java) and [`FixedCons.java`](https://github.com/nurkiewicz/LazySeq/blob/master/src/main/java/com/blogspot/nurkiewicz/lazyseq/FixedCons.java) used when `tail` is known at creation time (for example `LazySeq.of(1, 2)` as opposed to `LazySeq.cons(1, () -> someTailFun()`).
+For full implementation see [`Cons.java`](https://github.com/nurkiewicz/LazySeq/blob/master/src/main/java/com/nurkiewicz/lazyseq/Cons.java) and [`FixedCons.java`](https://github.com/nurkiewicz/LazySeq/blob/master/src/main/java/com/nurkiewicz/lazyseq/FixedCons.java) used when `tail` is known at creation time (for example `LazySeq.of(1, 2)` as opposed to `LazySeq.cons(1, () -> someTailFun()`).
 
 ## Pitfalls and common dangers
 
@@ -413,7 +413,7 @@ for (Big arr : getContinually()) {
 }
 ```
 
-What's the difference? For-each loop uses iterators underneath. [`LazySeqIterator`](https://github.com/nurkiewicz/LazySeq/blob/master/src/main/java/com/blogspot/nurkiewicz/lazyseq/LazySeqIterator.java) underneath doesn't hold a reference to old `head()` when it advances, so if nothing else references that head, it will be eligible for garbage collection, see true `javac` output when for-each is used:
+What's the difference? For-each loop uses iterators underneath. [`LazySeqIterator`](https://github.com/nurkiewicz/LazySeq/blob/master/src/main/java/com/nurkiewicz/lazyseq/LazySeqIterator.java) underneath doesn't hold a reference to old `head()` when it advances, so if nothing else references that head, it will be eligible for garbage collection, see true `javac` output when for-each is used:
 
 ```java
 for (Iterator<Big> cur = getContinually().iterator(); cur.hasNext(); ) {
@@ -451,8 +451,8 @@ But remember that Java collections are finite from definition so avoid convertin
 `head()` of every sequence (except empty) is always computed eagerly, thus accessing it is fast `O(1)`. Computing `tail()` may take everything from `O(1)` (if it was already computed) to infinite time. As an example take this valid stream:
 
 ```java
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.cons;
-import static com.blogspot.nurkiewicz.lazyseq.LazySeq.continually;
+import static com.nurkiewicz.lazyseq.LazySeq.cons;
+import static com.nurkiewicz.lazyseq.LazySeq.continually;
 
 LazySeq<Integer> oneAndZeros = cons(
 	1,
@@ -491,17 +491,17 @@ When working with `LazySeq` you sometimes get `StackOverflowError` or `OutOfMemo
 	java.lang.StackOverflowError
 		at sun.misc.Unsafe.allocateInstance(Native Method)
 		at java.lang.invoke.DirectMethodHandle.allocateInstance(DirectMethodHandle.java:426)
-		at com.blogspot.nurkiewicz.lazyseq.LazySeq.iterate(LazySeq.java:118)
-		at com.blogspot.nurkiewicz.lazyseq.LazySeq.lambda$0(LazySeq.java:118)
-		at com.blogspot.nurkiewicz.lazyseq.LazySeq$$Lambda$2.get(Unknown Source)
-		at com.blogspot.nurkiewicz.lazyseq.Cons.tail(Cons.java:32)
-		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
-		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
-		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
-		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
-		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
-		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
-		at com.blogspot.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.nurkiewicz.lazyseq.LazySeq.iterate(LazySeq.java:118)
+		at com.nurkiewicz.lazyseq.LazySeq.lambda$0(LazySeq.java:118)
+		at com.nurkiewicz.lazyseq.LazySeq$$Lambda$2.get(Unknown Source)
+		at com.nurkiewicz.lazyseq.Cons.tail(Cons.java:32)
+		at com.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
+		at com.nurkiewicz.lazyseq.LazySeq.size(LazySeq.java:325)
 
 When working with possibly infinite data structures, care must be taken. Avoid calling operations that *must* (`size()`, `allMatch()`, `minBy()`, `forEach()`, `reduce()`, ...) or *can* (`filter()`, `distinct()`, ...) traverse the whole sequence in order to give correct results. See *Pitfalls* for more examples and ways to avoid.
 
@@ -511,7 +511,7 @@ When working with possibly infinite data structures, care must be taken. Avoid c
 
 ### Quality
 
-This project was started as an exercise and is not battle-proven. But a healthy [300+ unit-test suite](https://github.com/nurkiewicz/LazySeq/tree/master/src/test/java/com/blogspot/nurkiewicz/lazyseq) (3:1 test code/production code ratio) guards quality and functional correctness. I also make sure `LazySeq` is as lazy as possible by mocking tail functions and verifying they are called as rarely as one can get.
+This project was started as an exercise and is not battle-proven. But a healthy [300+ unit-test suite](https://github.com/nurkiewicz/LazySeq/tree/master/src/test/java/com/nurkiewicz/lazyseq) (3:1 test code/production code ratio) guards quality and functional correctness. I also make sure `LazySeq` is as lazy as possible by mocking tail functions and verifying they are called as rarely as one can get.
 
 Project was tested on [Java 8 build 113](https://jdk8.java.net/download.html) with lambda support.
 
