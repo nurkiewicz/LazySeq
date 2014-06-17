@@ -6,8 +6,8 @@ import org.testng.annotations.Test;
 
 import static com.nurkiewicz.lazyseq.LazySeq.of;
 import static com.nurkiewicz.lazyseq.LazySeq.tabulate;
-import static org.fest.assertions.api.Assertions.assertThat;
-import static org.fest.assertions.api.Assertions.offset;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.offset;
 
 /**
  * @author Tomasz Nurkiewicz

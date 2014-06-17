@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 import static com.nurkiewicz.lazyseq.LazySeq.*;
 import static com.nurkiewicz.lazyseq.samples.Seqs.primes;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Tomasz Nurkiewicz

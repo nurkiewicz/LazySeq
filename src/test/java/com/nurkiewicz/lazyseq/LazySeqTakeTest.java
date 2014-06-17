@@ -7,8 +7,8 @@ import java.util.function.Supplier;
 
 import static com.nurkiewicz.lazyseq.LazySeq.numbers;
 import static com.nurkiewicz.lazyseq.LazySeq.of;
-import static org.fest.assertions.api.Assertions.assertThat;
-import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**

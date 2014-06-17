@@ -7,9 +7,8 @@ import java.util.List;
 import static com.nurkiewicz.lazyseq.LazySeq.empty;
 import static com.nurkiewicz.lazyseq.LazySeq.of;
 import static com.nurkiewicz.lazyseq.samples.Seqs.primes;
-import static java.util.Arrays.asList;
-import static org.fest.assertions.api.Assertions.assertThat;
-import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 /**
  * @author Tomasz Nurkiewicz
@@ -63,7 +62,7 @@ public class LazySeqGroupedTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> grouped = fixed.grouped(4);
 
 		//then
-		assertThat(grouped.head()).isEqualTo(asList(5, 7, 9));
+		assertThat(grouped.head()).containsExactly(5, 7, 9);
 		assertThat(grouped).hasSize(1);
 	}
 
@@ -76,7 +75,7 @@ public class LazySeqGroupedTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> grouped = fixed.grouped(4);
 
 		//then
-		assertThat(grouped.head()).isEqualTo(asList(5, 7, 9, 11));
+		assertThat(grouped.head()).containsExactly(5, 7, 9, 11);
 		assertThat(grouped).hasSize(1);
 	}
 
@@ -89,8 +88,8 @@ public class LazySeqGroupedTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> grouped = fixed.grouped(3);
 
 		//then
-		assertThat(grouped.get(0)).isEqualTo(asList(5, 7, 9));
-		assertThat(grouped.get(1)).isEqualTo(asList(11));
+		assertThat(grouped.get(0)).containsExactly(5, 7, 9);
+		assertThat(grouped.get(1)).containsExactly(11);
 		assertThat(grouped).hasSize(2);
 	}
 
@@ -103,8 +102,8 @@ public class LazySeqGroupedTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> grouped = fixed.grouped(2);
 
 		//then
-		assertThat(grouped.get(0)).isEqualTo(asList(5, 7));
-		assertThat(grouped.get(1)).isEqualTo(asList(9, 11));
+		assertThat(grouped.get(0)).containsExactly(5, 7);
+		assertThat(grouped.get(1)).containsExactly(9, 11);
 		assertThat(grouped).hasSize(2);
 	}
 
@@ -117,9 +116,9 @@ public class LazySeqGroupedTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> grouped = fixed.grouped(1);
 
 		//then
-		assertThat(grouped.get(0)).isEqualTo(asList(5));
-		assertThat(grouped.get(1)).isEqualTo(asList(7));
-		assertThat(grouped.get(2)).isEqualTo(asList(9));
+		assertThat(grouped.get(0)).containsExactly(5);
+		assertThat(grouped.get(1)).containsExactly(7);
+		assertThat(grouped.get(2)).containsExactly(9);
 		assertThat(grouped).hasSize(3);
 	}
 
@@ -132,7 +131,7 @@ public class LazySeqGroupedTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> grouped = fixed.grouped(1);
 
 		//then
-		assertThat(grouped.get(0)).isEqualTo(asList(3));
+		assertThat(grouped.get(0)).containsExactly(3);
 		assertThat(grouped).hasSize(1);
 	}
 
@@ -157,9 +156,9 @@ public class LazySeqGroupedTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> grouped = primes.grouped(3);
 
 		//then
-		assertThat(grouped.get(0)).isEqualTo(asList(2, 3, 5));
-		assertThat(grouped.get(1)).isEqualTo(asList(7, 11, 13));
-		assertThat(grouped.get(2)).isEqualTo(asList(17, 19, 23));
+		assertThat(grouped.get(0)).containsExactly(2, 3, 5);
+		assertThat(grouped.get(1)).containsExactly(7, 11, 13);
+		assertThat(grouped.get(2)).containsExactly(17, 19, 23);
 	}
 
 }

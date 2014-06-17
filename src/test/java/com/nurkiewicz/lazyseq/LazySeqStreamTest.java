@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import static com.nurkiewicz.lazyseq.LazySeq.numbers;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Tomasz Nurkiewicz

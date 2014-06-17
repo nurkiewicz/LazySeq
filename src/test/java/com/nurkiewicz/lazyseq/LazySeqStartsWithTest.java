@@ -6,7 +6,7 @@ import static com.nurkiewicz.lazyseq.LazySeq.empty;
 import static com.nurkiewicz.lazyseq.LazySeq.of;
 import static com.nurkiewicz.lazyseq.samples.Seqs.primes;
 import static java.util.Arrays.asList;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Tomasz Nurkiewicz

@@ -7,9 +7,8 @@ import java.util.List;
 import static com.nurkiewicz.lazyseq.LazySeq.empty;
 import static com.nurkiewicz.lazyseq.LazySeq.of;
 import static com.nurkiewicz.lazyseq.samples.Seqs.primes;
-import static java.util.Arrays.asList;
-import static org.fest.assertions.api.Assertions.assertThat;
-import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 /**
  * @author Tomasz Nurkiewicz
@@ -63,7 +62,7 @@ public class LazySeqSlidingTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> sliding = fixed.sliding(4);
 
 		//then
-		assertThat(sliding.head()).isEqualTo(asList(5, 7, 9));
+		assertThat(sliding.head()).containsExactly(5, 7, 9);
 		assertThat(sliding).hasSize(1);
 	}
 
@@ -76,7 +75,7 @@ public class LazySeqSlidingTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> sliding = fixed.sliding(4);
 
 		//then
-		assertThat(sliding.head()).isEqualTo(asList(5, 7, 9, 11));
+		assertThat(sliding.head()).containsExactly(5, 7, 9, 11);
 		assertThat(sliding).hasSize(1);
 	}
 
@@ -89,8 +88,8 @@ public class LazySeqSlidingTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> sliding = fixed.sliding(3);
 
 		//then
-		assertThat(sliding.get(0)).isEqualTo(asList(5, 7, 9));
-		assertThat(sliding.get(1)).isEqualTo(asList(7, 9, 11));
+		assertThat(sliding.get(0)).containsExactly(5, 7, 9);
+		assertThat(sliding.get(1)).containsExactly(7, 9, 11);
 		assertThat(sliding).hasSize(2);
 	}
 
@@ -103,9 +102,9 @@ public class LazySeqSlidingTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> sliding = fixed.sliding(2);
 
 		//then
-		assertThat(sliding.get(0)).isEqualTo(asList(5, 7));
-		assertThat(sliding.get(1)).isEqualTo(asList(7, 9));
-		assertThat(sliding.get(2)).isEqualTo(asList(9, 11));
+		assertThat(sliding.get(0)).containsExactly(5, 7);
+		assertThat(sliding.get(1)).containsExactly(7, 9);
+		assertThat(sliding.get(2)).containsExactly(9, 11);
 		assertThat(sliding).hasSize(3);
 	}
 
@@ -118,9 +117,9 @@ public class LazySeqSlidingTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> sliding = fixed.sliding(1);
 
 		//then
-		assertThat(sliding.get(0)).isEqualTo(asList(5));
-		assertThat(sliding.get(1)).isEqualTo(asList(7));
-		assertThat(sliding.get(2)).isEqualTo(asList(9));
+		assertThat(sliding.get(0)).containsExactly(5);
+		assertThat(sliding.get(1)).containsExactly(7);
+		assertThat(sliding.get(2)).containsExactly(9);
 		assertThat(sliding).hasSize(3);
 	}
 
@@ -133,7 +132,7 @@ public class LazySeqSlidingTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> sliding = fixed.sliding(1);
 
 		//then
-		assertThat(sliding.get(0)).isEqualTo(asList(3));
+		assertThat(sliding.get(0)).containsExactly(3);
 		assertThat(sliding).hasSize(1);
 	}
 
@@ -158,10 +157,10 @@ public class LazySeqSlidingTest extends AbstractBaseTestCase {
 		final LazySeq<List<Integer>> sliding = primes.sliding(3);
 
 		//then
-		assertThat(sliding.get(0)).isEqualTo(asList(2, 3, 5));
-		assertThat(sliding.get(1)).isEqualTo(asList(3, 5, 7));
-		assertThat(sliding.get(2)).isEqualTo(asList(5, 7, 11));
-		assertThat(sliding.get(3)).isEqualTo(asList(7, 11, 13));
+		assertThat(sliding.get(0)).containsExactly(2, 3, 5);
+		assertThat(sliding.get(1)).containsExactly(3, 5, 7);
+		assertThat(sliding.get(2)).containsExactly(5, 7, 11);
+		assertThat(sliding.get(3)).containsExactly(7, 11, 13);
 	}
 
 }

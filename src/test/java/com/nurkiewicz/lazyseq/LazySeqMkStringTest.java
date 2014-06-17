@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 
 import static com.nurkiewicz.lazyseq.LazySeq.*;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Stefan Endrullis

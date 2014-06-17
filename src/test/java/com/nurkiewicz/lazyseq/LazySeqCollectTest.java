@@ -7,7 +7,7 @@ import java.util.List;
 import static com.nurkiewicz.lazyseq.LazySeq.empty;
 import static com.nurkiewicz.lazyseq.LazySeq.of;
 import static java.util.stream.Collectors.toList;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Tomasz Nurkiewicz

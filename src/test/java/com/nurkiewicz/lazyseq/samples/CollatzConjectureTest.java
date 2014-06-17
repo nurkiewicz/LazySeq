@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static com.nurkiewicz.lazyseq.LazySeq.cons;
 import static com.nurkiewicz.lazyseq.LazySeq.of;
 import static java.util.Arrays.asList;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * See: http://en.wikipedia.org/wiki/Collatz_conjecture
