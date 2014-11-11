@@ -1,4 +1,6 @@
-# Lazy sequences implementation for Java 8 [![Build Status](https://travis-ci.org/nurkiewicz/LazySeq.svg?branch=master)](https://travis-ci.org/nurkiewicz/LazySeq)
+[![Build Status](https://travis-ci.org/nurkiewicz/LazySeq.svg?branch=master)](https://travis-ci.org/nurkiewicz/LazySeq) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.nurkiewicz.lazyseq/lazyseq/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.nurkiewicz.lazyseq/lazyseq)
+
+# Lazy sequences implementation for Java 8
 
 ## Introduction
 
